@@ -1,0 +1,68 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Contact | Hamza Furkan Atmaca" description="Get in touch with Hamza via email or phone." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="contact">
+				<h1>Contact</h1>
+				<p>You can reach me via:</p>
+				<ul>
+					<li>
+						<strong>Email:</strong>
+						<a href="mailto:hamzafurkanatmaca@gmail.com">hamzafurkanatmaca@gmail.com</a>
+					</li>
+					<li>
+						<strong>Phone:</strong>
+						<a href="tel:+905352318884">+90 535 231 88 84</a>
+					</li>
+					<li>
+						<p>Beylikdüzü, İstanbul</p>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 1em;
+			}
+			.contact h1 {
+				margin: 0 0 0.5em 0;
+				text-align: center;
+			}
+			.contact p {
+				text-align: center;
+				color: rgb(var(--gray));
+			}
+			.contact ul {
+				list-style: none;
+				padding: 0;
+				margin: 1.5em auto 0 auto;
+				display: grid;
+				gap: 0.75em;
+			}
+			.contact li {
+				text-align: center;
+			}
+			.contact a {
+				text-decoration: none;
+				color: rgb(var(--accent));
+			}
+			.contact a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</body>
+</html>

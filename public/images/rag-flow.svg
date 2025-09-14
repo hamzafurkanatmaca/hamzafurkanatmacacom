@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="540" viewBox="0 0 1080 540">
+  <defs>
+    <style>
+      .box { fill: #ffffff; stroke: #111827; stroke-width: 2; rx: 10; ry: 10; }
+      .title { font: 600 18px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #111827; }
+      .text { font: 14px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #374151; }
+      .arrow { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrowhead); fill: none; }
+      .muted { fill: #6b7280; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <!-- User Question -->
+  <rect class="box" x="40" y="60" width="200" height="80" />
+  <text class="title" x="140" y="105" text-anchor="middle">Kullanıcı Sorusu</text>
+
+  <!-- Embedder -->
+  <rect class="box" x="300" y="60" width="200" height="80" />
+  <text class="title" x="400" y="95" text-anchor="middle">Embedding</text>
+  <text class="text" x="400" y="118" text-anchor="middle">Sorgu vektörü</text>
+
+  <!-- Vector DB -->
+  <rect class="box" x="560" y="40" width="240" height="120" />
+  <text class="title" x="680" y="85" text-anchor="middle">Vektör Veritabanı</text>
+  <text class="text" x="680" y="110" text-anchor="middle">En yakın 5 parça</text>
+
+  <!-- Compose Prompt -->
+  <rect class="box" x="300" y="220" width="500" height="120" />
+  <text class="title" x="550" y="260" text-anchor="middle">Prompt Birleştirme</text>
+  <text class="text" x="550" y="285" text-anchor="middle">Talimat + Soru + İlgili Parçalar</text>
+
+  <!-- LLM -->
+  <rect class="box" x="860" y="220" width="180" height="120" />
+  <text class="title" x="950" y="260" text-anchor="middle">LLM</text>
+  <text class="text" x="950" y="285" text-anchor="middle">Yanıt + Kaynaklar</text>
+
+  <!-- Arrows -->
+  <line class="arrow" x1="240" y1="100" x2="300" y2="100" />
+  <line class="arrow" x1="500" y1="100" x2="560" y2="100" />
+  <line class="arrow" x1="680" y1="160" x2="550" y2="220" />
+  <line class="arrow" x1="800" y1="280" x2="860" y2="280" />
+
+  <!-- Caption -->
+  <text class="muted" x="540" y="520" text-anchor="middle">RAG (Retrieval‑Augmented Generation) akışı</text>
+</svg>

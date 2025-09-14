@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="LLM sağlayıcı seçim rehberi">
+  <rect x="0" y="0" width="1200" height="500" fill="#ffffff"/>
+  <text x="600" y="42" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#111827">Sağlayıcı Seçim Rehberi</text>
+
+  <!-- Sorular -->
+  <rect x="80" y="90" width="1040" height="320" rx="12" ry="12" fill="#f8fafc" stroke="#e2e8f0"/>
+
+  <text x="140" y="140" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Veri gizliliği/regülasyon kritik mi?</text>
+  <text x="140" y="170" font-family="Arial" font-size="14" fill="#334155">Evet → Azure OpenAI / Bedrock · Hayır → Diğerlerine bak</text>
+
+  <text x="140" y="220" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Maliyet ve hız öncelikli mi?</text>
+  <text x="140" y="250" font-family="Arial" font-size="14" fill="#334155">Evet → Mistral / Llama tabanlı modeller · Değilse → Üst seviye</text>
+
+  <text x="140" y="300" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Gelişmiş multimodal (görsel/ses) gerekiyor mu?</text>
+  <text x="140" y="330" font-family="Arial" font-size="14" fill="#334155">Evet → Gemini / GPT‑4o · Değilse → Metin odaklı</text>
+
+  <text x="680" y="140" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Self‑host şart mı?</text>
+  <text x="680" y="170" font-family="Arial" font-size="14" fill="#334155">Evet → vLLM / Ollama + Llama/Mixtral · Hayır → SaaS</text>
+
+  <text x="680" y="220" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Erişilebilirlik ve ekosistem mi önemli?</text>
+  <text x="680" y="250" font-family="Arial" font-size="14" fill="#334155">OpenAI/Anthropic geniş entegrasyon · Dokümantasyon güçlü</text>
+
+  <text x="680" y="300" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Belge sınıflandırma/arama ağır basıyor mu?</text>
+  <text x="680" y="330" font-family="Arial" font-size="14" fill="#334155">Cohere / Mistral + RAG · PGVector / Pinecone</text>
+</svg>
