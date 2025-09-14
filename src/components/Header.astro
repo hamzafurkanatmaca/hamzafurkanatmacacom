@@ -12,6 +12,18 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/contact">Contact</HeaderLink>
 		</div>
+		<input id="nav-toggle" type="checkbox" class="nav-toggle" aria-label="Toggle navigation" />
+		<label for="nav-toggle" class="menu-toggle" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
+			<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+			</svg>
+		</label>
+		<div id="mobile-menu" class="mobile-drawer">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/contact">Contact</HeaderLink>
+		</div>
 		<div class="social-links">
 			<a href="https://github.com/hamzafurkanatmaca" target="_blank">
 				<span class="sr-only">Hamza's GitHub</span>
@@ -48,6 +60,7 @@ import { SITE_TITLE } from '../consts';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		position: relative;
 	}
 	nav a {
 		padding: 1em 0.5em;
@@ -63,7 +76,42 @@ import { SITE_TITLE } from '../consts';
 	.social-links a {
 		display: flex;
 	}
+	.nav-toggle {
+		display: none;
+	}
+	.menu-toggle {
+		display: none;
+		cursor: pointer;
+		color: var(--black);
+	}
+	.mobile-drawer {
+		display: none;
+	}
 	@media (max-width: 720px) {
+		.internal-links {
+			display: none;
+		}
+		.menu-toggle {
+			display: block;
+			padding: 0.5em;
+		}
+		/* Drawer */
+		#nav-toggle:checked ~ .mobile-drawer {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			background: white;
+			box-shadow: 0 8px 24px rgba(var(--black), 10%);
+			border-radius: 0 0 12px 12px;
+			z-index: 20;
+		}
+		.mobile-drawer a {
+			padding: 0.75em 1em;
+			border-bottom: 1px solid rgba(var(--black), 5%);
+		}
 		.social-links {
 			display: none;
 		}
