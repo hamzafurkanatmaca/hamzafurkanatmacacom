@@ -14,65 +14,125 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<Header />
 		<main>
 			<section class="hero">
-				<img
-					src="/hamza-portrait.jpg"
-					alt="Hamza Furkan Atmaca portrait"
-					width="240"
-					height="240"
-					loading="eager"
-				/>
-				<div class="intro">
-					<h4>👋 Hi, I'm</h4>
-					<h4>Hamza Furkan Atmaca</h4>
-					<p>
-						Computer Engineer (MSc, with thesis) and .NET backend developer. I build robust APIs,
-						event-driven systems, and cloud-native services. I’m also exploring AI and prompt
-						engineering to make software smarter and more productive.
-					</p>
-					<p>
-						This site is my personal hub — writing, notes, and experiments in .NET, distributed
-						systems, and AI.
-					</p>
-					<p>
-						<a href="/blog">Read the Blog →</a>
-						&nbsp;|&nbsp;
-						<a href="/about">About Me</a>
-					</p>
+				<div class="hero-content">
+					<div class="intro">
+						<h1>Hi, I'm <span class="text-gradient">Hamza Furkan Atmaca</span></h1>
+						<p class="tagline">
+							Computer Engineer (MSc) & .NET Backend Developer
+						</p>
+						<p>
+							I build robust APIs, event-driven systems, and cloud-native services. 
+							Passionate about leveraging AI and prompt engineering to create smarter software solutions.
+						</p>
+						<div class="actions">
+							<a href="/blog" class="button primary">Read the Blog</a>
+							<a href="/about" class="button secondary">More About Me</a>
+						</div>
+					</div>
+					<div class="hero-image">
+						<img
+							src="/hamza-portrait.jpg"
+							alt="Hamza Furkan Atmaca portrait"
+							width="280"
+							height="280"
+							loading="eager"
+						/>
+					</div>
 				</div>
 			</section>
 		</main>
 		<Footer />
 		<style>
 			.hero {
-				display: grid;
-				grid-template-columns: 240px 1fr;
-				gap: 1.25em;
-				align-items: center;
-				max-width: 960px;
-				margin: 0 auto;
-				padding: 1em;
+				padding: 4rem 0;
 			}
-			.hero img {
-				display: block;
-				width: 240px;
-				height: 240px;
-				object-fit: cover;
-				border-radius: 9999px;
-				box-shadow: var(--box-shadow);
-				margin-bottom: 15rem;
+			.hero-content {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 4rem;
+			}
+			.intro {
+				flex: 1;
 			}
 			.intro h1 {
-				margin-top: 0;
+				font-size: 3rem;
+				line-height: 1.1;
+				margin-bottom: 0.5rem;
 			}
-			@media (max-width: 720px) {
+			.text-gradient {
+				background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				color: transparent;
+			}
+			.tagline {
+				font-size: 1.25rem;
+				font-weight: 500;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 1.5rem;
+			}
+			.actions {
+				margin-top: 2rem;
+				display: flex;
+				gap: 1rem;
+			}
+			.button {
+				display: inline-block;
+				padding: 0.75rem 1.5rem;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.button.primary {
+				background-color: var(--accent);
+				color: white;
+				box-shadow: 0 4px 6px rgba(35, 55, 255, 0.2);
+			}
+			.button.secondary {
+				background-color: rgb(var(--gray-light));
+				color: rgb(var(--black));
+			}
+			.button:hover {
+				transform: translateY(-2px);
+			}
+			.button.primary:hover {
+				background-color: var(--accent-dark);
+				box-shadow: 0 6px 8px rgba(35, 55, 255, 0.3);
+			}
+			.button.secondary:hover {
+				background-color: #e0e5eb;
+			}
+			.hero-image img {
+				border-radius: 24px;
+				box-shadow: var(--box-shadow-hover);
+				object-fit: cover;
+				transition: transform 0.3s ease;
+			}
+			.hero-image img:hover {
+				transform: rotate(2deg) scale(1.02);
+			}
+
+			@media (max-width: 768px) {
 				.hero {
-					grid-template-columns: 1fr;
-					text-align: center;
+					padding: 2rem 0;
 				}
-				.hero img {
-					margin: 0 auto 0.75rem auto;
-					width: 180px;
-					height: 180px;
+				.hero-content {
+					flex-direction: column-reverse;
+					text-align: center;
+					gap: 2rem;
+				}
+				.intro h1 {
+					font-size: 2.25rem;
+				}
+				.actions {
+					justify-content: center;
+				}
+				.hero-image img {
+					width: 200px;
+					height: 200px;
 				}
 			}
 		</style>

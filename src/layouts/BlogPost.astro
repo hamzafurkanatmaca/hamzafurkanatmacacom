@@ -15,16 +15,20 @@ const { title, description, pubDate, updatedDate, heroImage, heroWidth = 1020, h
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
+				width: 100%;
 				max-width: 100%;
 				margin: 0;
+				padding-bottom: 4rem; /* Add some bottom padding to main */
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 960px;
+				margin: 0 auto 2rem auto;
+				padding: 0 1rem;
 			}
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
+				width: 100%;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
 			}
@@ -36,13 +40,14 @@ const { title, description, pubDate, updatedDate, heroImage, heroWidth = 1020, h
 				color: rgb(var(--gray-dark));
 			}
 			.title {
-				margin-bottom: 1em;
+				margin-bottom: 2em;
 				padding: 1em 0;
 				text-align: center;
 				line-height: 1;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: 2.5rem;
 			}
 			.date {
 				margin-bottom: 0.5em;
@@ -50,6 +55,11 @@ const { title, description, pubDate, updatedDate, heroImage, heroWidth = 1020, h
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid rgb(var(--gray-light));
+				margin: 2rem 0;
 			}
 		</style>
 	</head>
