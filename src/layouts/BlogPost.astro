@@ -13,83 +13,374 @@ const { title, description, pubDate, updatedDate, heroImage, heroWidth = 1020, h
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: 100%;
-				max-width: 100%;
-				margin: 0;
-				padding-bottom: 4rem; /* Add some bottom padding to main */
-			}
-			.hero-image {
-				width: 100%;
-				max-width: 960px;
-				margin: 0 auto 2rem auto;
-				padding: 0 1rem;
-			}
-			.hero-image img {
-				display: block;
-				width: 100%;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 2em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-				font-size: 2.5rem;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-			hr {
-				border: none;
-				border-top: 1px solid rgb(var(--gray-light));
-				margin: 2rem 0;
-			}
-		</style>
 	</head>
 
 	<body>
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <img width={heroWidth} height={heroHeight} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
+				<!-- Hero Section -->
+				<header class="article-header">
+					<div class="header-glow"></div>
+					<div class="header-content">
+						<a href="/blog" class="back-link">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="m12 19-7-7 7-7"/>
+								<path d="M19 12H5"/>
+							</svg>
+							Back to Blog
+						</a>
+						
+						<div class="meta">
+							<time>
+								<FormattedDate date={pubDate} />
+							</time>
+							{updatedDate && (
+								<span class="updated">
+									· Updated <FormattedDate date={updatedDate} />
+								</span>
+							)}
 						</div>
+						
 						<h1>{title}</h1>
-						<hr />
+						
+						{description && (
+							<p class="description">{description}</p>
+						)}
 					</div>
+				</header>
+				
+				<!-- Hero Image -->
+				{heroImage && (
+					<div class="hero-image">
+						<img src={heroImage} alt="" width={heroWidth} height={heroHeight} />
+					</div>
+				)}
+				
+				<!-- Article Content -->
+				<div class="prose">
 					<slot />
 				</div>
+				
+				<!-- Article Footer -->
+				<footer class="article-footer">
+					<div class="share-section">
+						<span>Share this article</span>
+						<div class="share-buttons">
+							<a 
+								href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
+								target="_blank"
+								rel="noopener"
+								aria-label="Share on X (Twitter)"
+							>
+								<svg viewBox="0 0 24 24" fill="currentColor">
+									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+								</svg>
+							</a>
+							<a 
+								href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`}
+								target="_blank"
+								rel="noopener"
+								aria-label="Share on LinkedIn"
+							>
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+									<rect x="2" y="9" width="4" height="12"/>
+									<circle cx="4" cy="4" r="2"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+					
+					<a href="/blog" class="button secondary">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="m12 19-7-7 7-7"/>
+							<path d="M19 12H5"/>
+						</svg>
+						All Articles
+					</a>
+				</footer>
 			</article>
 		</main>
 		<Footer />
+		
+		<style>
+			main {
+				padding-top: 72px;
+				max-width: 100%;
+				padding-left: 0;
+				padding-right: 0;
+			}
+			
+			article {
+				width: 100%;
+			}
+			
+			/* Article Header */
+			.article-header {
+				position: relative;
+				padding: var(--space-3xl) var(--space-lg);
+				text-align: center;
+				overflow: hidden;
+			}
+			
+			.header-glow {
+				position: absolute;
+				top: -150px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 700px;
+				height: 500px;
+				background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+				pointer-events: none;
+				opacity: 0.3;
+			}
+			
+			.header-content {
+				position: relative;
+				max-width: 800px;
+				margin: 0 auto;
+			}
+			
+			.back-link {
+				display: inline-flex;
+				align-items: center;
+				gap: var(--space-sm);
+				color: var(--text-muted);
+				font-size: 0.9rem;
+				text-decoration: none;
+				margin-bottom: var(--space-xl);
+				transition: color var(--transition-fast);
+			}
+			
+			.back-link:hover {
+				color: var(--text-primary);
+			}
+			
+			.meta {
+				color: var(--text-muted);
+				font-size: 0.95rem;
+				margin-bottom: var(--space-md);
+			}
+			
+			.updated {
+				font-style: italic;
+			}
+			
+			.article-header h1 {
+				font-size: clamp(2rem, 5vw, 3rem);
+				line-height: 1.2;
+				margin-bottom: var(--space-md);
+			}
+			
+			.description {
+				color: var(--text-secondary);
+				font-size: 1.2rem;
+				line-height: 1.6;
+				margin: 0;
+			}
+			
+			/* Hero Image */
+			.hero-image {
+				max-width: 1000px;
+				margin: 0 auto var(--space-2xl);
+				padding: 0 var(--space-lg);
+			}
+			
+			.hero-image img {
+				width: 100%;
+				border-radius: var(--radius-lg);
+				box-shadow: var(--shadow-xl);
+				border: 1px solid var(--border);
+			}
+			
+			/* Prose Content */
+			.prose {
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 0 var(--space-lg) var(--space-2xl);
+				font-size: 1.05rem;
+				line-height: 1.8;
+			}
+			
+			.prose :global(h2) {
+				font-size: 1.75rem;
+				margin-top: var(--space-2xl);
+				margin-bottom: var(--space-md);
+				padding-top: var(--space-lg);
+				border-top: 1px solid var(--border);
+			}
+			
+			.prose :global(h3) {
+				font-size: 1.375rem;
+				margin-top: var(--space-xl);
+				margin-bottom: var(--space-md);
+			}
+			
+			.prose :global(h4) {
+				font-size: 1.125rem;
+				margin-top: var(--space-lg);
+				margin-bottom: var(--space-sm);
+			}
+			
+			.prose :global(p) {
+				margin-bottom: var(--space-lg);
+			}
+			
+			.prose :global(a) {
+				color: var(--accent-light);
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+			
+			.prose :global(a:hover) {
+				color: var(--accent);
+			}
+			
+			.prose :global(img) {
+				margin: var(--space-xl) 0;
+				border-radius: var(--radius-lg);
+				box-shadow: var(--shadow-md);
+				border: 1px solid var(--border);
+			}
+			
+			.prose :global(ul),
+			.prose :global(ol) {
+				margin-bottom: var(--space-lg);
+				padding-left: var(--space-xl);
+			}
+			
+			.prose :global(li) {
+				margin-bottom: var(--space-sm);
+			}
+			
+			.prose :global(blockquote) {
+				margin: var(--space-xl) 0;
+				padding: var(--space-lg);
+				background: var(--surface);
+				border-left: 4px solid var(--accent);
+				border-radius: 0 var(--radius-md) var(--radius-md) 0;
+			}
+			
+			.prose :global(blockquote p:last-child) {
+				margin-bottom: 0;
+			}
+			
+			.prose :global(pre) {
+				margin: var(--space-xl) 0;
+				padding: var(--space-lg);
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				overflow-x: auto;
+			}
+			
+			.prose :global(code) {
+				font-size: 0.9em;
+			}
+			
+			.prose :global(hr) {
+				margin: var(--space-2xl) 0;
+				border: none;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--border), transparent);
+			}
+			
+			.prose :global(table) {
+				width: 100%;
+				margin: var(--space-xl) 0;
+				border-collapse: collapse;
+			}
+			
+			.prose :global(th),
+			.prose :global(td) {
+				padding: var(--space-md);
+				text-align: left;
+				border-bottom: 1px solid var(--border);
+			}
+			
+			.prose :global(th) {
+				font-weight: 600;
+				color: var(--text-primary);
+			}
+			
+			/* Article Footer */
+			.article-footer {
+				max-width: 720px;
+				margin: 0 auto;
+				padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+				border-top: 1px solid var(--border);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: var(--space-lg);
+			}
+			
+			.share-section {
+				display: flex;
+				align-items: center;
+				gap: var(--space-md);
+			}
+			
+			.share-section span {
+				color: var(--text-muted);
+				font-size: 0.9rem;
+			}
+			
+			.share-buttons {
+				display: flex;
+				gap: var(--space-sm);
+			}
+			
+			.share-buttons a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 40px;
+				height: 40px;
+				background: var(--surface-elevated);
+				border-radius: var(--radius-md);
+				color: var(--text-muted);
+				transition: all var(--transition-fast);
+			}
+			
+			.share-buttons a:hover {
+				background: var(--gray-700);
+				color: var(--text-primary);
+				transform: translateY(-2px);
+			}
+			
+			.share-buttons svg {
+				width: 18px;
+				height: 18px;
+			}
+			
+			/* Responsive */
+			@media (max-width: 768px) {
+				.article-header {
+					padding: var(--space-2xl) var(--space-md);
+				}
+				
+				.hero-image {
+					padding: 0 var(--space-md);
+				}
+				
+				.prose {
+					padding: 0 var(--space-md) var(--space-2xl);
+					font-size: 1rem;
+				}
+				
+				.article-footer {
+					padding: var(--space-lg) var(--space-md) var(--space-2xl);
+					justify-content: center;
+					text-align: center;
+				}
+				
+				.share-section {
+					flex-direction: column;
+				}
+			}
+		</style>
 	</body>
 </html>

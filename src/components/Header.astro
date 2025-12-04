@@ -5,144 +5,395 @@ import { SITE_TITLE } from '../consts';
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		<a href="/" class="logo">
+			<span class="logo-icon">HFA</span>
+			<span class="logo-text">{SITE_TITLE}</span>
+		</a>
+		
+		<div class="nav-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/contact">Contact</HeaderLink>
 		</div>
-		<input id="nav-toggle" type="checkbox" class="nav-toggle" aria-label="Toggle navigation" />
-		<label for="nav-toggle" class="menu-toggle" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
-			<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-			</svg>
-		</label>
-		<div id="mobile-menu" class="mobile-drawer">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
-		</div>
-		<div class="social-links">
-			<a href="https://github.com/hamzafurkanatmaca" target="_blank">
-				<span class="sr-only">Hamza's GitHub</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-			</a>
-			<a href="https://www.linkedin.com/in/hamza-furkan-atmaca-1b9b97198/" target="_blank">
-				<span class="sr-only">Connect with Hamza on LinkedIn</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"><path fill="currentColor" d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.473 0 16 .513 16 1.146v13.708C16 15.487 15.474 16 14.825 16H1.175C.527 16 0 15.487 0 14.854V1.146zM4.943 13.5V6.169H2.542V13.5h2.401zm-1.2-8.262c.837 0 1.356-.554 1.356-1.248-.015-.709-.519-1.248-1.342-1.248-.823 0-1.356.54-1.356 1.248 0 .694.519 1.248 1.327 1.248h.015zM13.458 13.5V9.344c0-2.221-1.185-3.253-2.766-3.253-1.276 0-1.845.7-2.165 1.192v-1.02H6.142c.03.662 0 7.237 0 7.237h2.385v-4.042c0-.216.016-.432.08-.586.175-.432.574-.88 1.243-.88.877 0 1.228.664 1.228 1.637V13.5h2.38z"/></svg>
-			</a>
-			<a href="https://x.com/hfurkanatmaca" target="_blank">
-				<span class="sr-only">Follow Hamza on X</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"><path fill="currentColor" d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
-			</a>
+		
+		<div class="nav-right">
+			<div class="social-links">
+				<a href="https://github.com/hamzafurkanatmaca" target="_blank" rel="noopener" aria-label="GitHub">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+					</svg>
+				</a>
+				<a href="https://www.linkedin.com/in/hamza-furkan-atmaca-1b9b97198/" target="_blank" rel="noopener" aria-label="LinkedIn">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+						<rect x="2" y="9" width="4" height="12"/>
+						<circle cx="4" cy="4" r="2"/>
+					</svg>
+				</a>
+				<a href="https://x.com/hfurkanatmaca" target="_blank" rel="noopener" aria-label="X (Twitter)">
+					<svg viewBox="0 0 24 24" fill="currentColor">
+						<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+					</svg>
+				</a>
+			</div>
+			
+			<button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+				<span class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
 		</div>
 	</nav>
+	
+	<div class="mobile-menu">
+		<div class="mobile-menu-content">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/contact">Contact</HeaderLink>
+			<div class="mobile-social">
+				<a href="https://github.com/hamzafurkanatmaca" target="_blank" rel="noopener" aria-label="GitHub">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+					</svg>
+				</a>
+				<a href="https://www.linkedin.com/in/hamza-furkan-atmaca-1b9b97198/" target="_blank" rel="noopener" aria-label="LinkedIn">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+						<rect x="2" y="9" width="4" height="12"/>
+						<circle cx="4" cy="4" r="2"/>
+					</svg>
+				</a>
+				<a href="https://x.com/hfurkanatmaca" target="_blank" rel="noopener" aria-label="X (Twitter)">
+					<svg viewBox="0 0 24 24" fill="currentColor">
+						<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
 </header>
+
+<script>
+	const menuToggle = document.querySelector('.menu-toggle');
+	const mobileMenu = document.querySelector('.mobile-menu');
+	const header = document.querySelector('header');
+	
+	menuToggle?.addEventListener('click', () => {
+		const isOpen = mobileMenu?.classList.toggle('open');
+		menuToggle.setAttribute('aria-expanded', String(isOpen));
+		menuToggle.classList.toggle('active');
+	});
+	
+	// Close menu when clicking a link
+	document.querySelectorAll('.mobile-menu a').forEach(link => {
+		link.addEventListener('click', () => {
+			mobileMenu?.classList.remove('open');
+			menuToggle?.classList.remove('active');
+			menuToggle?.setAttribute('aria-expanded', 'false');
+		});
+	});
+	
+	// Add scroll effect
+	let lastScroll = 0;
+	window.addEventListener('scroll', () => {
+		const currentScroll = window.scrollY;
+		
+		if (currentScroll > 50) {
+			header?.classList.add('scrolled');
+		} else {
+			header?.classList.remove('scrolled');
+		}
+		
+		lastScroll = currentScroll;
+	});
+</script>
+
 <style>
 	header {
-		margin: 0;
-		padding: 0 1rem;
-		background: white;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-		position: sticky;
+		position: fixed;
 		top: 0;
-		z-index: 100;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: rgba(10, 10, 11, 0.8);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-bottom: 1px solid var(--border);
+		transition: all var(--transition-base);
 	}
+	
+	header.scrolled {
+		background: rgba(10, 10, 11, 0.95);
+		box-shadow: var(--shadow-lg);
+	}
+	
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: 960px;
-		margin: auto;
-		height: 4rem;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 var(--space-lg);
+		height: 72px;
 	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 700;
-	}
-	h2 a {
-		text-decoration: none;
-		color: rgb(var(--black));
-	}
-	.internal-links {
+	
+	.logo {
 		display: flex;
-		gap: 1.5rem;
-	}
-	.internal-links a {
-		color: rgb(var(--black));
-		font-weight: 500;
+		align-items: center;
+		gap: var(--space-sm);
 		text-decoration: none;
-		transition: color 0.2s ease;
-		font-size: 1rem;
+		color: var(--text-primary);
 	}
-	.internal-links a:hover,
-	.internal-links a.active {
-		color: var(--accent);
+	
+	.logo-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: var(--gradient-accent);
+		border-radius: var(--radius-md);
+		font-weight: 700;
+		font-size: 0.8rem;
+		letter-spacing: -0.02em;
 	}
+	
+	.logo-text {
+		font-weight: 700;
+		font-size: 1.1rem;
+		letter-spacing: -0.02em;
+	}
+	
+	.nav-links {
+		display: flex;
+		gap: var(--space-xl);
+	}
+	
+	.nav-links :global(a) {
+		color: var(--text-secondary);
+		font-weight: 500;
+		font-size: 0.95rem;
+		text-decoration: none;
+		transition: color var(--transition-fast);
+		position: relative;
+		padding: var(--space-sm) 0;
+	}
+	
+	.nav-links :global(a::after) {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: var(--gradient-accent);
+		transition: width var(--transition-base);
+		border-radius: var(--radius-full);
+	}
+	
+	.nav-links :global(a:hover),
+	.nav-links :global(a.active) {
+		color: var(--text-primary);
+	}
+	
+	.nav-links :global(a:hover::after),
+	.nav-links :global(a.active::after) {
+		width: 100%;
+	}
+	
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: var(--space-lg);
+	}
+	
 	.social-links {
 		display: flex;
-		gap: 0.75rem;
+		gap: var(--space-sm);
 	}
+	
 	.social-links a {
-		color: rgb(var(--black));
-		transition: color 0.2s ease, transform 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		color: var(--text-muted);
+		border-radius: var(--radius-md);
+		transition: all var(--transition-fast);
 	}
+	
 	.social-links a:hover {
-		color: var(--accent);
-		transform: translateY(-2px);
+		color: var(--text-primary);
+		background: var(--surface-elevated);
+	}
+	
+	.social-links svg {
+		width: 20px;
+		height: 20px;
+	}
+	
+	/* Hamburger Menu Button */
+	.menu-toggle {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		z-index: 1001;
+	}
+	
+	.hamburger {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		width: 24px;
+		height: 24px;
+	}
+	
+	.hamburger span {
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: var(--text-primary);
+		border-radius: var(--radius-full);
+		transition: all var(--transition-base);
+	}
+	
+	.menu-toggle.active .hamburger span:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+	
+	.menu-toggle.active .hamburger span:nth-child(2) {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+	
+	.menu-toggle.active .hamburger span:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
 	}
 	
 	/* Mobile Menu */
-	.nav-toggle {
+	.mobile-menu {
 		display: none;
-	}
-	.menu-toggle {
-		display: none;
-		cursor: pointer;
-		padding: 0.5rem;
-	}
-	.mobile-drawer {
-		display: none;
-		position: absolute;
-		top: 100%;
+		position: fixed;
+		top: 72px;
 		left: 0;
-		width: 100%;
-		background: white;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		padding: 1rem 0;
-		border-top: 1px solid rgb(var(--gray-light));
+		right: 0;
+		bottom: 0;
+		background: rgba(10, 10, 11, 0.98);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		opacity: 0;
+		visibility: hidden;
+		transition: all var(--transition-base);
+		z-index: 999;
 	}
-	.mobile-drawer a {
-		display: block;
-		padding: 0.75rem 1.5rem;
-		color: rgb(var(--black));
+	
+	.mobile-menu.open {
+		opacity: 1;
+		visibility: visible;
+	}
+	
+	.mobile-menu-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: var(--space-2xl);
+		gap: var(--space-lg);
+		height: 100%;
+	}
+	
+	.mobile-menu-content :global(a) {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: var(--text-secondary);
 		text-decoration: none;
-		font-weight: 500;
+		padding: var(--space-md);
+		transition: all var(--transition-fast);
+		transform: translateY(20px);
+		opacity: 0;
 	}
-	.mobile-drawer a:hover {
-		background-color: rgb(var(--gray-light));
-		color: var(--accent);
+	
+	.mobile-menu.open .mobile-menu-content :global(a) {
+		transform: translateY(0);
+		opacity: 1;
 	}
-
-	@media (max-width: 720px) {
-		.internal-links,
+	
+	.mobile-menu.open .mobile-menu-content :global(a:nth-child(1)) { transition-delay: 50ms; }
+	.mobile-menu.open .mobile-menu-content :global(a:nth-child(2)) { transition-delay: 100ms; }
+	.mobile-menu.open .mobile-menu-content :global(a:nth-child(3)) { transition-delay: 150ms; }
+	.mobile-menu.open .mobile-menu-content :global(a:nth-child(4)) { transition-delay: 200ms; }
+	
+	.mobile-menu-content :global(a:hover),
+	.mobile-menu-content :global(a.active) {
+		color: var(--accent-light);
+	}
+	
+	.mobile-social {
+		display: flex;
+		gap: var(--space-md);
+		margin-top: var(--space-xl);
+		transform: translateY(20px);
+		opacity: 0;
+		transition: all var(--transition-base);
+		transition-delay: 250ms;
+	}
+	
+	.mobile-menu.open .mobile-social {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	
+	.mobile-social a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		color: var(--text-muted);
+		background: var(--surface-elevated);
+		border-radius: var(--radius-md);
+		transition: all var(--transition-fast);
+	}
+	
+	.mobile-social a:hover {
+		color: var(--text-primary);
+		background: var(--gray-700);
+	}
+	
+	.mobile-social svg {
+		width: 24px;
+		height: 24px;
+	}
+	
+	@media (max-width: 768px) {
+		nav {
+			padding: 0 var(--space-md);
+		}
+		
+		.nav-links,
 		.social-links {
 			display: none;
 		}
-		.menu-toggle {
-			display: block;
+		
+		.menu-toggle,
+		.mobile-menu {
+			display: flex;
 		}
-		#nav-toggle:checked ~ .mobile-drawer {
-			display: block;
-			animation: slideDown 0.2s ease-out;
+		
+		.logo-text {
+			font-size: 1rem;
 		}
-	}
-
-	@keyframes slideDown {
-		from { opacity: 0; transform: translateY(-10px); }
-		to { opacity: 1; transform: translateY(0); }
 	}
 </style>

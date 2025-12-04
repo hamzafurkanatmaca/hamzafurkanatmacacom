@@ -1,47 +1,602 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead 
+			title={`About | ${SITE_TITLE}`} 
 	description="Computer Engineer (MSc) · .NET Backend Developer · AI & Prompt Engineering"
-	pubDate={new Date('September 14 2025')}
-	heroImage="/hamza-event.jpg"
-	heroWidth={420}
-	heroHeight={210}
->
-	<p>
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<!-- Hero Section -->
+			<section class="about-hero">
+				<div class="hero-glow"></div>
+				<div class="hero-content">
+					<div class="hero-text">
+						<h1>About <span class="text-gradient">Me</span></h1>
+						<p class="hero-intro">
 		I'm Hamza Furkan Atmaca — a Computer Engineer with a master's degree (with thesis) from
 		Yıldız Technical University. I work as a .NET backend developer building resilient APIs,
 		background services, and event-driven systems.
 	</p>
-
-	<p>
-		Lately, I'm exploring AI and prompt engineering: integrating LLMs into backend workflows,
-		orchestrating tools, and experimenting with retrieval, evaluation, and prompt design to
-		improve developer productivity.
-	</p>
-
-	<p>
-		On this site I write about .NET, clean architecture, DDD, cloud-native patterns, testing,
-		and practical AI for backend engineers. I’ll also share notes from my research, learnings,
-		and side projects.
-	</p>
-
-	<p>
-		If you'd like to say hi or collaborate, reach out via
-		<a href="https://www.linkedin.com/in/hamza-furkan-atmaca-1b9b97198/" target="_blank">LinkedIn</a>
-		or check out my code on
-		<a href="https://github.com/hamzafurkanatmaca" target="_blank">GitHub</a>.
-	</p>
+					</div>
+					<div class="hero-image">
+						<div class="image-wrapper">
+							<div class="image-glow"></div>
+							<img
+								src="/hamza-event.jpg"
+								alt="Hamza Furkan Atmaca at a tech event"
+								width="400"
+								height="300"
+								loading="eager"
+							/>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<!-- What I Do Section -->
+			<section class="what-i-do">
+				<h2>What I Do</h2>
+				<div class="expertise-grid">
+					<div class="expertise-card">
+						<div class="card-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+								<polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+								<line x1="12" y1="22.08" x2="12" y2="12"/>
+							</svg>
+						</div>
+						<h3>Backend Development</h3>
+						<p>
+							Building robust, scalable APIs and microservices using .NET Core. 
+							Focused on clean architecture, DDD, and CQRS patterns.
+						</p>
+					</div>
+					
+					<div class="expertise-card">
+						<div class="card-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+								<polyline points="22 4 12 14.01 9 11.01"/>
+							</svg>
+						</div>
+						<h3>Cloud & DevOps</h3>
+						<p>
+							Deploying cloud-native applications on Azure. Expertise in Docker, 
+							Kubernetes, and CI/CD pipelines for seamless deployments.
+						</p>
+					</div>
+					
+					<div class="expertise-card">
+						<div class="card-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M12 2a10 10 0 1 0 10 10H12V2z"/>
+								<path d="M21.18 8.02a10 10 0 0 0-9.16-5.95V12h9.96"/>
+							</svg>
+						</div>
+						<h3>AI & Prompt Engineering</h3>
+						<p>
+							Integrating LLMs into backend workflows, orchestrating tools, 
+							and experimenting with RAG, evaluation, and prompt design.
+						</p>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Experience Section -->
+			<section class="experience-section">
+				<h2>Experience & Education</h2>
+				<div class="timeline">
+					<div class="timeline-item">
+						<div class="timeline-marker"></div>
+						<div class="timeline-content">
+							<span class="timeline-date">2023 - Present</span>
+							<h3>.NET Backend Developer</h3>
+							<p>Building scalable APIs and event-driven systems. Working with microservices architecture, message queues, and cloud-native patterns.</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						<div class="timeline-marker"></div>
+						<div class="timeline-content">
+							<span class="timeline-date">2021 - 2024</span>
+							<h3>M.Sc. Computer Engineering</h3>
+							<p class="institution">Yıldız Technical University</p>
+							<p>Master's degree with thesis focusing on software engineering and system design.</p>
+						</div>
+					</div>
+					
+					<div class="timeline-item">
+						<div class="timeline-marker"></div>
+						<div class="timeline-content">
+							<span class="timeline-date">2016 - 2021</span>
+							<h3>B.Sc. Computer Engineering</h3>
+							<p class="institution">University</p>
+							<p>Foundation in computer science, algorithms, data structures, and software development.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Tech Stack Section -->
+			<section class="tech-section">
+				<h2>Tech Stack</h2>
+				<div class="tech-grid">
+					<div class="tech-category">
+						<h3>Languages</h3>
+						<div class="tech-tags">
+							<span>C#</span>
+							<span>TypeScript</span>
+							<span>SQL</span>
+							<span>Python</span>
+						</div>
+					</div>
+					
+					<div class="tech-category">
+						<h3>Frameworks</h3>
+						<div class="tech-tags">
+							<span>.NET Core</span>
+							<span>ASP.NET</span>
+							<span>Entity Framework</span>
+							<span>MediatR</span>
+						</div>
+					</div>
+					
+					<div class="tech-category">
+						<h3>Databases</h3>
+						<div class="tech-tags">
+							<span>SQL Server</span>
+							<span>PostgreSQL</span>
+							<span>MongoDB</span>
+							<span>Redis</span>
+						</div>
+					</div>
+					
+					<div class="tech-category">
+						<h3>Cloud & Tools</h3>
+						<div class="tech-tags">
+							<span>Azure</span>
+							<span>Docker</span>
+							<span>Kubernetes</span>
+							<span>RabbitMQ</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Connect Section -->
+			<section class="connect-section">
+				<div class="connect-card">
+					<h2>Let's Connect</h2>
+					<p>
+						I'm always open to discussing backend architecture, cloud solutions, 
+						or AI integration. Feel free to reach out!
+					</p>
+					<div class="connect-links">
+						<a href="https://www.linkedin.com/in/hamza-furkan-atmaca-1b9b97198/" target="_blank" rel="noopener" class="connect-link">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+								<rect x="2" y="9" width="4" height="12"/>
+								<circle cx="4" cy="4" r="2"/>
+							</svg>
+							LinkedIn
+						</a>
+						<a href="https://github.com/hamzafurkanatmaca" target="_blank" rel="noopener" class="connect-link">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+							</svg>
+							GitHub
+						</a>
+						<a href="https://x.com/hfurkanatmaca" target="_blank" rel="noopener" class="connect-link">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+							</svg>
+							X (Twitter)
+						</a>
+						<a href="mailto:hamzafurkanatmaca@gmail.com" class="connect-link">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<rect x="2" y="4" width="20" height="16" rx="2"/>
+								<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+							</svg>
+							Email
+						</a>
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		
 	<style>
-		.portrait {
+			main {
+				padding-top: 72px;
+				max-width: 1100px;
+			}
+			
+			/* Hero Section */
+			.about-hero {
+				position: relative;
+				padding: var(--space-3xl) 0;
+				overflow: hidden;
+			}
+			
+			.hero-glow {
+				position: absolute;
+				top: -150px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 700px;
+				height: 500px;
+				background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+				pointer-events: none;
+				opacity: 0.3;
+			}
+			
+			.hero-content {
+				position: relative;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: var(--space-3xl);
+				align-items: center;
+			}
+			
+			.hero-text h1 {
+				font-size: clamp(2.5rem, 5vw, 3.5rem);
+				margin-bottom: var(--space-lg);
+			}
+			
+			.hero-intro {
+				font-size: 1.15rem;
+				line-height: 1.8;
+				color: var(--text-secondary);
+			}
+			
+			.hero-image {
+				display: flex;
+				justify-content: center;
+			}
+			
+			.image-wrapper {
+				position: relative;
+			}
+			
+			.image-glow {
+				position: absolute;
+				inset: -15px;
+				background: var(--gradient-accent);
+				border-radius: var(--radius-xl);
+				opacity: 0.15;
+				filter: blur(30px);
+			}
+			
+			.image-wrapper img {
+				position: relative;
+				border-radius: var(--radius-xl);
+				box-shadow: var(--shadow-xl);
+				border: 1px solid var(--border);
+				object-fit: cover;
+			}
+			
+			/* What I Do Section */
+			.what-i-do {
+				padding: var(--space-3xl) 0;
+			}
+			
+			.what-i-do h2 {
+				text-align: center;
+				margin-bottom: var(--space-2xl);
+			}
+			
+			.expertise-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: var(--space-lg);
+			}
+			
+			.expertise-card {
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				padding: var(--space-xl);
+				transition: all var(--transition-base);
+			}
+			
+			.expertise-card:hover {
+				border-color: var(--border-light);
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-lg);
+			}
+			
+			.card-icon {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 56px;
+				height: 56px;
+				background: var(--surface-elevated);
+				border-radius: var(--radius-md);
+				margin-bottom: var(--space-md);
+				color: var(--accent-light);
+			}
+			
+			.expertise-card h3 {
+				font-size: 1.2rem;
+				margin-bottom: var(--space-sm);
+			}
+			
+			.expertise-card p {
+				color: var(--text-muted);
+				font-size: 0.95rem;
+				line-height: 1.6;
+				margin: 0;
+			}
+			
+			/* Experience Section */
+			.experience-section {
+				padding: var(--space-3xl) 0;
+			}
+			
+			.experience-section h2 {
+				text-align: center;
+				margin-bottom: var(--space-2xl);
+			}
+			
+			.timeline {
+				position: relative;
+				max-width: 700px;
+				margin: 0 auto;
+				padding-left: var(--space-2xl);
+			}
+			
+			.timeline::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 2px;
+				background: linear-gradient(180deg, var(--accent), var(--border));
+				border-radius: var(--radius-full);
+			}
+			
+			.timeline-item {
+				position: relative;
+				padding-bottom: var(--space-2xl);
+			}
+			
+			.timeline-item:last-child {
+				padding-bottom: 0;
+			}
+			
+			.timeline-marker {
+				position: absolute;
+				left: calc(-1 * var(--space-2xl) - 5px);
+				top: 6px;
+				width: 12px;
+				height: 12px;
+				background: var(--accent);
+				border-radius: 50%;
+				box-shadow: 0 0 0 4px var(--background);
+			}
+			
+			.timeline-content {
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				padding: var(--space-lg);
+			}
+			
+			.timeline-date {
+				display: inline-block;
+				padding: var(--space-xs) var(--space-md);
+				background: var(--surface-elevated);
+				border-radius: var(--radius-full);
+				font-size: 0.85rem;
+				color: var(--accent-light);
+				font-weight: 500;
+				margin-bottom: var(--space-sm);
+			}
+			
+			.timeline-content h3 {
+				font-size: 1.15rem;
+				margin-bottom: var(--space-xs);
+			}
+			
+			.timeline-content .institution {
+				color: var(--text-muted);
+				font-size: 0.9rem;
+				margin-bottom: var(--space-sm);
+			}
+			
+			.timeline-content p:last-child {
+				color: var(--text-secondary);
+				font-size: 0.95rem;
+				line-height: 1.6;
+				margin: 0;
+			}
+			
+			/* Tech Stack Section */
+			.tech-section {
+				padding: var(--space-3xl) 0;
+			}
+			
+			.tech-section h2 {
+				text-align: center;
+				margin-bottom: var(--space-2xl);
+			}
+			
+			.tech-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: var(--space-lg);
+			}
+			
+			.tech-category {
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				padding: var(--space-lg);
+				text-align: center;
+			}
+			
+			.tech-category h3 {
+				font-size: 1rem;
+				color: var(--text-primary);
+				margin-bottom: var(--space-md);
+			}
+			
+			.tech-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--space-xs);
+				justify-content: center;
+			}
+			
+			.tech-tags span {
+				padding: 6px 12px;
+				background: var(--surface-elevated);
+				border-radius: var(--radius-full);
+				font-size: 0.85rem;
+				color: var(--text-muted);
+			}
+			
+			/* Connect Section */
+			.connect-section {
+				padding: var(--space-3xl) 0;
+			}
+			
+			.connect-card {
+				text-align: center;
+				padding: var(--space-3xl);
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-xl);
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.connect-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 300px;
+				height: 200px;
+				background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+				pointer-events: none;
+				opacity: 0.3;
+			}
+			
+			.connect-card h2 {
+				position: relative;
+				margin-bottom: var(--space-md);
+			}
+			
+			.connect-card > p {
+				position: relative;
+				color: var(--text-secondary);
+				max-width: 500px;
+				margin: 0 auto var(--space-xl);
+			}
+			
+			.connect-links {
+				position: relative;
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+				gap: var(--space-md);
+			}
+			
+			.connect-link {
+				display: inline-flex;
+				align-items: center;
+				gap: var(--space-sm);
+				padding: var(--space-md) var(--space-lg);
+				background: var(--surface-elevated);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-md);
+				color: var(--text-secondary);
+				font-weight: 500;
+				text-decoration: none;
+				transition: all var(--transition-base);
+			}
+			
+			.connect-link:hover {
+				background: var(--gray-700);
+				color: var(--text-primary);
+				border-color: var(--border-light);
+				transform: translateY(-2px);
+			}
+			
+			.connect-link svg {
+				color: var(--accent-light);
+			}
+			
+			/* Responsive */
+			@media (max-width: 1024px) {
+				.expertise-grid {
+					grid-template-columns: 1fr;
+				}
+				
+				.tech-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			
+			@media (max-width: 768px) {
+				.hero-content {
+					grid-template-columns: 1fr;
 			text-align: center;
-			margin: 0.5em 0 1em 0;
-		}
-		.portrait img {
-			border-radius: 9999px;
-			box-shadow: var(--box-shadow);
+					gap: var(--space-2xl);
+				}
+				
+				.hero-text {
+					order: 2;
+				}
+				
+				.hero-image {
+					order: 1;
+				}
+				
+				.image-wrapper img {
+					max-width: 280px;
+					height: auto;
+				}
+				
+				.tech-grid {
+					grid-template-columns: 1fr;
+				}
+				
+				.timeline {
+					padding-left: var(--space-xl);
+				}
+				
+				.timeline-marker {
+					left: calc(-1 * var(--space-xl) - 5px);
+				}
+				
+				.connect-card {
+					padding: var(--space-2xl) var(--space-lg);
+				}
+				
+				.connect-links {
+					flex-direction: column;
+					align-items: stretch;
+				}
+				
+				.connect-link {
+					justify-content: center;
+				}
 		}
 	</style>
-</Layout>
+	</body>
+</html>
