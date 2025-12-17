@@ -25,11 +25,11 @@ Güvenlik ve uyumluluk ekipleri bunu seviyor. Denetim logları, veri işleme bö
 
 ## Anthropic Claude: Uzun Metinlerin Efendisi
 
-Claude ile ilk tanışmam bir hukuk teknolojisi projesinde oldu. Uzun sözleşmeleri analiz etmemiz gerekiyordu ve Claude'un bağlam penceresi bu işte gerçekten fark yarattı.
+Claude ile ilk tanışmam bir mobil uygulama projesinde oldu. Firebase entegrasyonu deniyordum ve diğer modeller başarısız olmuşken Claude bu işte gerçekten fark yarattı.
 
-Claude'un bir de "personality" meselesi var — diğer modellere göre daha temkinli, daha az "hallucination" yapma eğiliminde. Bu güvenilirlik gerektiren alanlarda (sağlık, hukuk, finans) önemli bir artı.
+Claude'un bir de "personality" meselesi var — diğer modellere göre daha temkinli, daha az halüsinasyon görme eğiliminde. Bu güvenilirlik gerektiren alanlarda (sağlık, hukuk, finans) önemli bir artı.
 
-**Eksiler:** Ekosistem OpenAI kadar geniş değil. Bazı entegrasyonları kendiniz yapmanız gerekebilir. Türkiye'den erişimde zaman zaman sorunlar yaşanabiliyor (bu değişkenlik gösterebilir, güncel durumu kontrol edin).
+**Eksiler:** Ekosistem OpenAI kadar geniş değil. Bazı entegrasyonları kendiniz yapmanız gerekebilir. Türkiye'den erişimde zaman zaman sorunlar yaşanabiliyor (bu değişkenlik gösterebilir, güncel durumu kontrol etmeliyiz).
 
 ## Google Gemini: Multimodal Güç
 

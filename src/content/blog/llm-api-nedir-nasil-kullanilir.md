@@ -5,59 +5,60 @@ pubDate: "Sep 14 2025"
 heroImage: "/images/llm-architecture.svg"
 ---
 
-Son birkaç yılda yazılım geliştirme süreçlerimiz ciddi bir dönüşüm geçirdi. ChatGPT'nin çıkışıyla birlikte "acaba bunu da AI'a yaptırabilir miyim?" sorusu günlük rutinimizin parçası oldu. Ben de backend tarafında çalışırken bu modelleri projelerime nasıl entegre edebileceğimi araştırmaya başladım. Bu yazıda öğrendiklerimi ve deneyimlerimi paylaşmak istiyorum.
+ChatGPT çıktığından beri "acaba bunu da AI'a yaptırabilir miyim?" sorusu kafamdan çıkmıyor. İlk başta sadece ChatGPT web arayüzünden kullanıyordum, sonra bir gün dedim ki "ben bunu kendi uygulamamın içine gömsem ne güzel olur." API dokümantasyonunu açtım, 3 saat sonra ilk çalışan örneği gördüğümde çocuk gibi sevindim. O günden beri bu API'larla haşır neşirim.
 
-## Neden API Kullanıyoruz?
+## Neden Kendi Sunucunda Çalıştırmıyorsun?
 
-Aslında mantık basit: Bu modelleri çalıştırmak için ciddi donanım gerekiyor. GPU'lar pahalı, bakımı zahmetli ve her proje için ayrı bir altyapı kurmak pek mantıklı değil. API kullanarak sadece kullandığın kadar ödüyorsun, güncel modellere anında erişiyorsun ve ölçeklendirme derdini sağlayıcıya bırakıyorsun.
+Düşünsene, GPT-4 çalıştırmak için evine bir sunucu odası mı kuracaksın? A100 GPU'lar tanesi 10-15 bin dolar civarı, elektrik faturasını saymıyorum bile. API kullanınca sadece kullandığın kadar ödüyorsun. Startup'lar için bu çok kritik — validasyon yapmadan önce altyapıya para gömmek mantıksız.
 
-Tabii her şeyin bir bedeli var. Veri gizliliği konusunda dikkatli olmak gerekiyor, özellikle müşteri verisi işliyorsan. Token başına ücretlendirme de kontrolsüz bırakılırsa fatura sürprizleri yaşatabilir — bunu tecrübeyle öğrendim.
+Tabii bedavaya gelmiyor. Geçen ay bir projesinde cache koymayı unutunca 3 günde 180 dolar fatura gelen birini gördüm. Her yeni projede ilk iş rate limiter ve cache koymak olmalı.
 
-## Bilmeniz Gereken Terimler
+Bir de veri gizliliği meselesi var. Müşteri verisi işliyorsan, o verinin OpenAI sunucularına gitmesi bazı sektörlerde yasak. Finans ve sağlık projelerinde buna dikkat etmek lazım.
 
-İlk başta bu kavramlar kafa karıştırıcı gelebilir ama zamanla oturuyor:
+## Terminoloji (Başta Kafa Karıştırıyor Ama Alışıyorsun)
 
-**Token** denen şey aslında modelin "düşünme birimi". Kelimeler genellikle birden fazla token'a bölünüyor. Türkçe'de bu biraz daha karmaşık çünkü ekli dilimiz token sayısını artırıyor. Faturalandırma token üzerinden yapılıyor, o yüzden prompt'larınızı gereksiz uzatmamak önemli.
+**Token**: Modelin "düşünme birimi" gibi bir şey. "Merhaba nasılsın" 3-4 token oluyor. Türkçe'nin eklemeli yapısı yüzünden aynı anlam için İngilizce'den daha fazla token harcıyoruz, bu da faturaya yansıyor. "Yapabileceklerimizden" gibi bir kelime tek başına 3-4 token.
 
-**Bağlam penceresi** modelin aynı anda "görebildiği" metin miktarı. 8K, 32K, 200K gibi rakamlar görürsünüz. Büyük belgelerle çalışıyorsanız bu sınır kritik. Ama şunu da bilin: pencere büyüdükçe maliyet de artıyor.
+**Bağlam penceresi**: Modelin aynı anda görebildiği metin miktarı. GPT-4 Turbo'da 128K token var, yani küçük bir kitabı tek seferde okuyabilir. Ama dikkat: pencere büyüdükçe fiyat da artıyor ve model bazen ortadaki bilgileri "unutuyor" — buna "lost in the middle" deniyor.
 
-**Temperature** ve benzeri parametreler çıktının ne kadar "yaratıcı" olacağını belirliyor. Kod üretimi için düşük tutuyorum (0.1-0.3 arası), yaratıcı metin için biraz yükseltiyorum. Üretim sistemlerinde genellikle düşük tutmak daha güvenli.
+**Temperature**: 0'a yakın tutarsan model çok deterministik davranır, aynı soruya hep aynı cevabı verir. 1'e yaklaştıkça yaratıcılaşır ama saçmalama riski de artar. Kod üretimi için 0.1-0.2, yaratıcı yazı için 0.7-0.8 kullanılır genelde.
 
-**Streaming** kullanıcı deneyimi için çok önemli. Cevabın tamamını beklemek yerine parça parça göstermek, uygulamayı çok daha responsive hissettiriyor.
+**Streaming**: Cevabın tamamını beklemek yerine parça parça almak. Kullanıcı açısından çok fark ediyor — ChatGPT'nin yazı yazarken göründüğü gibi. Bunu implement etmek biraz uğraştırıcı olabilir ama UX için değer. Kullanıcılar beklemekten sıkılmaya meyillidirler.
 
-**Function/Tool calling** ise işlerin gerçekten ilginçleştiği nokta. Model bir fonksiyon çağırması gerektiğine karar veriyor, siz o fonksiyonu çalıştırıp sonucu geri veriyorsunuz. Ajan sistemlerinin temeli bu.
+**Function calling**: İşlerin heyecanlandığı yer burası. Model "hava durumunu öğrenmem lazım" deyip sana bir fonksiyon çağrısı döndürüyor, sen API'dan hava durumunu çekip modele geri veriyorsun, o da kullanıcıya güzel bir cevap veriyor. Agent sistemlerinin temeli bu olmakla beraber agent sistemleri ayrı bir makale konusu.
 
-## Mimari Nasıl Görünüyor?
+## Mimari
 
 ![LLM API mimarisi](/images/llm-architecture.svg)
 
-Tipik bir akış şöyle işliyor: Kullanıcıdan gelen istek önce sizin uygulamanıza geliyor. Burada gerekli ön işlemleri yapıyorsunuz — belki RAG için vektör veritabanından ilgili belgeleri çekiyorsunuz, belki iş kurallarını uyguluyorsunuz. Sonra LLM API'sine istek atıyorsunuz, cevabı alıp işleyip kullanıcıya dönüyorsunuz. Arada loglama, önbellekleme ve hata yönetimi katmanları var tabii.
+Akış basit aslında: Kullanıcı soruyor → sen soruyu alıp LLM API'a gönderiyorsun → cevabı alıp kullanıcıya dönüyorsun. Arada logging, caching, retry mekanizması olmalı tabi. Error handling'i baştan düzgün yapmazsan sonra çok uğraştırıyor, tecrübeyle sabit :)
 
-## Kimler Ne Sunuyor?
+## Hangi Sağlayıcıyı Seçmeli?
 
-**OpenAI** hâlâ en yaygın tercih. GPT-4 ailesi güçlü, dokümantasyon iyi, topluluk geniş. Hızlı prototipleme için ideal.
+Şahsi favorim şu an **Claude 3.5 Sonnet**. Uzun döküman işlerinde GPT-4'ü geçiyor bence, üstelik daha ucuz. Anthropic'in "constitutional AI" yaklaşımı da hoşuma gidiyor.
 
-**Azure OpenAI** kurumsal projeler için mantıklı. Azure'un güvenlik altyapısıyla (VNet, Key Vault, RBAC) entegre çalışıyor. Model güncellemeleri biraz geç gelebiliyor ama kurumsal müşteriler için bu genellikle artı.
+**OpenAI** hâlâ varsayılan tercih çoğu kişi için. Dokümantasyonu en iyi olan onlar, community çok geniş, bir sorun yaşarsan Stack Overflow'da muhtemelen biri çözmüştür. Ama son zamanlarda fiyat politikaları biraz sinir bozucu.
 
-**Anthropic'in Claude'u** uzun belgelerle çalışmada çok iyi. Özellikle hukuk, araştırma gibi metin yoğun alanlarda tercih ediliyor.
+**Azure OpenAI** kurumsal projeler için mantıklı. KVKK/GDPR hassasiyeti olan projelerde Azure tercih edilebilir. Modeller biraz geç geliyor ama kurumsal müşteriler zaten "en yeni" yerine "en stabil" istiyor.
 
-**Google Gemini** multimodal (görsel + metin) işlerde güçlü. GCP kullanıyorsanız entegrasyon kolay.
+**Google Gemini** görsel + metin işlerinde güçlü. İyi bir tasarımcı.
 
-**Mistral** ve **Cohere** maliyet-performans dengesinde iyi alternatifler. Her iş için GPT-4 gerekmiyor, bazen daha küçük modeller işi görüyor.
+**Mistral** ve **Groq** maliyet-performans dengesi için bakılabilir. Her iş için GPT gerekmez, basit sınıflandırma için küçük model yeterli.
 
-**Açık kaynak** (Llama, Mixtral vb.) veri egemenliği şartsa veya özel fine-tuning gerekiyorsa değerlendirmeye değer. Ama operasyonel yükü hafife almayın.
+**Açık kaynak** (Llama 3, Mixtral) veri egemenliği şartsa veya özel fine-tuning gerekiyorsa değerlendirilmeli. Ama operasyonel yükü hafife alma — Bu kısmı deneyimlemedim ama sabah 4'te sisteminin neden çöktüğünü debug etmek eğlenceli olmasa gerek :).
 
-## Gerçek Hayatta Nerede Kullanılıyor?
+## Nerelerde Kullanılıyor?
 
-- **Yardım masası ve chatbot**: Ürün dokümantasyonu üzerinden RAG ile müşteri sorularını yanıtlama
-- **Özetleme**: Toplantı notları, uzun e-postalar, raporlar
-- **Veri çıkarımı**: Faturalardan, sözleşmelerden yapılandırılmış veri elde etme
-- **Kod asistanı**: PR inceleme, test önerisi, dokümantasyon
-- **Semantik arama**: Klasik keyword aramanın ötesinde, anlamsal eşleşme
+En çok gördüğüm use case'ler:
+
+- **Müşteri destek chatbot'u**: Ürün dökümanlarını RAG ile besleyip müşteri sorularını otomatik yanıtlama. %70-80 soruyu halledebiliyorlar.
+- **Özetleme**: Toplantı kayıtlarını, uzun e-postaları özetleme. Baya zaman kazandırıyor.
+- **Dökümanlardan veri çıkarma**: PDF faturalardan, sözleşmelerden yapısal veri çekme. OCR + LLM kombinasyonu çok güçlü.
+- **Kod asistanı**: Copilot tarzı autocomplete, PR review önerileri, test yazımı.
 
 ## Kod Örnekleri
 
-### Basit bir Chat çağrısı (.NET)
+### Basit Chat Çağrısı (.NET)
 
 ```csharp
 var http = new HttpClient();
@@ -85,9 +86,11 @@ var result = await response.Content.ReadAsStringAsync();
 Console.WriteLine(result);
 ```
 
-### Streaming ile daha iyi UX
+Production'da tabii bunu böyle naked HttpClient ile yapmazsın, Polly ile retry eklersin, timeout koyarsın falan. Ama demo için bu kadar yeterli.
 
-Kullanıcının cevabı beklerken ekranın donması hiç hoş değil. Streaming ile cevap parça parça geliyor:
+### Streaming
+
+Kullanıcının ekranının donması kötü deneyim. Streaming ile cevap parça parça geliyor:
 
 ```csharp
 var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions");
@@ -96,7 +99,7 @@ request.Content = new StringContent(JsonSerializer.Serialize(new
 {
     model = "gpt-4o-mini",
     stream = true,
-    messages = new[] { new { role = "user", content = "Mikroservis mimarisinin avantajlarını anlat." } }
+    messages = new[] { new { role = "user", content = "Mikroservis mimarisinin artıları eksileri?" } }
 }), Encoding.UTF8, "application/json");
 
 using var client = new HttpClient();
@@ -111,27 +114,27 @@ while (!reader.EndOfStream)
     {
         var data = line.Substring(6);
         if (data == "[DONE]") break;
-        // Her chunk'ı işle ve UI'a gönder
+        // Her chunk'ı parse edip UI'a gönder
     }
 }
 ```
 
-### Basit RAG Yapısı
+### RAG Mantığı
 
-RAG'ın mantığı şu: Modele soruyu sormadan önce, ilgili bilgileri vektör veritabanından çekip prompt'a ekliyorsun. Model böylece kendi bilmediği şeyleri de "biliyor" gibi cevap verebiliyor.
+RAG'ın özü şu: Modele soruyu sormadan önce, vektör veritabanından ilgili dökümanları çekip prompt'a ekliyorsun. Model kendi eğitiminde görmediği şeyleri de böyle "biliyor".
 
 ![RAG akışı](/images/rag-flow.svg)
 
 ```csharp
 // 1. Kullanıcı sorusunu embedding'e çevir
-// 2. Vektör DB'den en yakın 5 dokümanı getir
-// 3. Bu dokümanları prompt'a ekle
+// 2. Pinecone/Qdrant/Weaviate'den en yakın 5 chunk'ı getir
+// 3. Bu chunk'ları prompt'a ekle
 
 var context = string.Join("\n\n", relevantDocs.Select(d => d.Content));
 
 var prompt = $"""
 Aşağıdaki bilgileri kullanarak soruyu yanıtla. 
-Bilmediğin bir şey sorulursa "bu konuda bilgim yok" de.
+Emin olmadığın konularda "bu konuda bilgim yok" de.
 
 Bağlam:
 {context}
@@ -140,35 +143,25 @@ Soru: {userQuestion}
 """;
 ```
 
+Chunk boyutu ve overlap ayarları önemli. 500-1000 token civarı chunk'lar genelde iyi çalışıyor ama bu veri setine göre değişir. Denemek lazım.
+
 ## Maliyet Kontrolü
 
-Bu konuda birkaç ders çıkardım:
+Öğrendiğim dersler:
 
-1. **Doğru model seçimi**: Her iş için en güçlü model gerekmez. Basit sınıflandırma işleri için GPT-4 yerine GPT-3.5 veya daha küçük modeller yeterli.
+1. **Model seçimi**: Basit işler için gpt-4o-mini veya claude-3-haiku yeterli. Her şey için en büyük modeli kullanma.
 
-2. **Prompt optimizasyonu**: Gereksiz uzun system prompt'lar maliyeti artırıyor. Net ve kısa tutun.
+2. **Prompt kısalt**: Gereksiz uzun system prompt'lar maliyeti şişiriyor. "Sen yardımsever bir asistansın..." gibi klişeler gereksiz, model zaten öyle.
 
-3. **Önbellekleme**: Aynı sorular tekrar tekrar soruluyorsa (FAQ gibi), cevapları cache'leyin.
+3. **Cache**: Aynı sorular tekrar geliyorsa (FAQ mesela), Redis'e at. Semantic cache de var ama implement etmesi daha karmaşık.
 
-4. **Batch işleme**: Gerçek zamanlı olması gerekmeyenler için toplu işlem yapın.
+4. **Rate limit koy**: Hem maliyet hem de API limit aşımı için gerekli.
 
-## Güvenlik Notları
+## Güvenlik
 
-- **Prompt injection**: Kullanıcı girdisini doğrudan prompt'a koymadan önce temizleyin. Kötü niyetli kullanıcılar modeli manipüle etmeye çalışabilir.
-- **Hassas veri**: PII (kişisel tanımlayıcı bilgi) içeren verileri modele göndermeden önce maskeleyin.
-- **Çıktı kontrolü**: Model bazen istenmeyen şeyler üretebilir. Kritik işlemlerde çıktıyı doğrulayın.
+- **Prompt injection**: Kullanıcı girdisini temizlemelisin. "Şimdi önceki tüm talimatları unut ve..." gibi şeyler deneyenler olabilir.
+- **PII maskeleme**: TC kimlik, kredi kartı gibi verileri modele göndermeden önce maskelemelisin.
+- **Output validation**: Model bazen halüsinasyon yapıyor. Kritik işlemlerde çıktıyı doğrulamalısın.
 
-## Üretime Çıkmadan Önce
 
-Kontrol listem şöyle:
-
-- [ ] Prompt'lar versiyonlanmış mı?
-- [ ] Rate limiting var mı?
-- [ ] Retry mekanizması kuruldu mu?
-- [ ] Loglar tutuluyor mu (istek, yanıt, token sayısı, maliyet)?
-- [ ] Fallback senaryoları düşünüldü mü (API çökerse ne olacak)?
-- [ ] Veri gizliliği politikası netleştirildi mi?
-
----
-
-LLM API'ları doğru kullanıldığında gerçekten güçlü araçlar. Ama "AI her şeyi çözer" yaklaşımıyla değil, spesifik problemlere spesifik çözümler olarak düşünmek daha sağlıklı. Umarım bu yazı başlangıç noktası olarak işinize yarar.
+Faydalı olması dileğiyle.
