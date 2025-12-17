@@ -5,23 +5,23 @@ pubDate: "Sep 14 2025"
 heroImage: "/images/provider-landscape.svg"
 ---
 
-Geçen ay bir arkadaşım sordu: "Hangi LLM API'sini kullanmalıyım?" Cevabım her zamanki gibi oldu: "Duruma göre değişir." Klişe gibi gelebilir ama gerçekten öyle. Bir fintech şirketinin ihtiyaçlarıyla bir içerik ajansının ihtiyaçları tamamen farklı. Bu yazıda farklı sağlayıcılarla olan deneyimlerimi ve gözlemlerimi paylaşacağım.
+Geçen ay bir arkadaşım sordu: "Hangi LLM API'sini kullanmalıyım?" Cevabım her zamanki gibi oldu: "Duruma göre değişir." Klişe gibi gelebilir ama gerçekten öyle. Bir fintech şirketinin ihtiyaçlarıyla bir içerik ajansının ihtiyaçları tamamen farklıdır. Bu yazıda farklı sağlayıcılarla olan deneyimlerimi ve gözlemlerimi paylaşacağım.
 
 ## OpenAI: Herkesin Bildiği İsim
 
 Açıkçası çoğu proje için varsayılan tercih OpenAI oluyor. Sebepleri anlaşılır: En zengin ekosistem, en iyi dokümantasyon, en geniş topluluk. Bir sorunla karşılaştığında Stack Overflow'da veya GitHub'da muhtemelen birisi aynı şeyi yaşamıştır.
 
-GPT-4 ailesi gerçekten güçlü. Özellikle karmaşık muhakeme gerektiren işlerde — kod analizi, uzun belge özetleme, çok adımlı problem çözme — fark belirgin. API tasarımı temiz, SDK'lar olgun.
+GPT ailesi gerçekten güçlü. Özellikle karmaşık muhakeme gerektiren işlerde — kod analizi, uzun belge özetleme, çok adımlı problem çözme — fark belirgin. API tasarımı temiz, SDK'lar olgun.
 
-**Dikkat edilmesi gereken noktalar:** Veri gizliliği hassas projeler için düşünülmeli. OpenAI'ın veri saklama politikalarını iyi inceleyin. Ayrıca API'nin zaman zaman yavaşladığı veya hata verdiği dönemler oluyor — kritik sistemlerde fallback planı şart.
+**Dikkat edilmesi gereken noktalar:** Veri gizliliği hassas projeler için dikkatli olunmalı. OpenAI'ın veri saklama politikalarını iyi inceleyin. Ayrıca API'nin zaman zaman yavaşladığı veya hata verdiği dönemler oluyor — kritik sistemlerde problem olabilir.
 
 ## Azure OpenAI: Kurumsal Oyuncu
 
-Eğer zaten Azure ekosistemindeyseniz ve kurumsal gereksinimleri karşılamanız gerekiyorsa, Azure OpenAI mantıklı bir seçim. Aynı OpenAI modelleri ama Azure'un güvenlik altyapısıyla sarmalanmış: VNet entegrasyonu, Private Link, Key Vault, RBAC...
+Eğer zaten Azure ekosistemindeyseniz ve kurumsal gereksinimleri karşılamanız gerekiyorsa, Azure OpenAI mantıklı bir seçim. Aynı OpenAI modelleri ama Azure'un güvenlik altyapısıyla sarmalanmış.
 
 Güvenlik ve uyumluluk ekipleri bunu seviyor. Denetim logları, veri işleme bölgesi kontrolü, SLA garantileri — büyük şirketlerin checklist'indeki maddeleri karşılıyor.
 
-**Eksiler:** Model güncellemeleri OpenAI'a göre geride kalabiliyor. Bazen yeni bir model çıkıyor, Azure'da birkaç hafta sonra geliyor. Ayrıca başlangıç süreci biraz daha bürokratik — kaynak oluşturma, onay süreçleri falan.
+**Eksiler:** Model güncellemeleri OpenAI'a göre geride kalabiliyor. Bazen yeni bir model çıkıyor, Azure'da birkaç hafta sonra geliyor. Ayrıca başlangıç süreci biraz daha bürokratik — kaynak oluşturma, onay süreçleri falan. E bir de daha pahalı tabi.
 
 ## Anthropic Claude: Uzun Metinlerin Efendisi
 
@@ -33,7 +33,7 @@ Claude'un bir de "personality" meselesi var — diğer modellere göre daha temk
 
 ## Google Gemini: Multimodal Güç
 
-Eğer projenizde görsel + metin birlikte işleniyorsa, Gemini'yi kesinlikle değerlendirin. Görsel anlama yetenekleri güçlü. GCP kullanıyorsanız entegrasyon zahmetsiz — aynı IAM, aynı faturalama, aynı ekosistem.
+Eğer projenizde görsel + metin birlikte işleniyorsa, Gemini'yi kesinlikle değerlendirin. Görsel anlama yetenekleri güçlü. Google Cloud kullanıyorsanız entegrasyon zahmetsiz olur — aynı IAM, aynı faturalama, aynı ekosistem.
 
 **Dikkat noktaları:** Bazı bölgelerde erişilebilirlik sorunları olabiliyor. Dokümantasyon bazen parçalı hissettiriyor. Model davranışında dönemsel değişiklikler gözlemledim — production'da kullanıyorsanız düzenli test etmekte fayda var.
 
@@ -45,15 +45,9 @@ Avrupa merkezli olmaları veri egemenliği açısından bazı projeler için art
 
 **Sınırları:** Çok karmaşık muhakeme gerektiren işlerde GPT-4 veya Claude seviyesinde değil. Ama zaten her iş için en güçlü model gerekmez, değil mi?
 
-## Cohere: Kurumsal Arama ve NLP
-
-Cohere'ı belge arama ve sınıflandırma projesinde kullandım. Özellikle enterprise search ve RAG uygulamalarında optimize edilmiş bir deneyim sunuyorlar. SLA'ları net, API tasarımı tutarlı.
-
-**Pozisyonları:** "Her şeyi yapan genel model" değil, "belirli işleri iyi yapan özelleşmiş çözüm" yaklaşımı. Kod üretimi veya yaratıcı yazı için ilk tercihim olmaz ama doküman işlemlerinde güvenilir.
-
 ## Açık Kaynak: Llama, Mixtral ve Kendi Altyapınız
 
-Veri kesinlikle dışarı çıkamaz diyorsanız, veya çok spesifik bir domain için fine-tune etmeniz gerekiyorsa, açık kaynak modeller değerlendirmeye değer.
+Veri kesinlikle dışarı çıkamaz diyorsanız, veya çok spesifik bir alan için fine-tune etmeniz gerekiyorsa, açık kaynak modeller değerlendirmeye değer.
 
 Llama 3, Mixtral gibi modeller artık oldukça yetenekli. vLLM veya TGI ile self-host edebilirsiniz. Ollama local geliştirme için harika.
 
@@ -63,7 +57,7 @@ Llama 3, Mixtral gibi modeller artık oldukça yetenekli. vLLM veya TGI ile self
 
 ![Sağlayıcı manzarası](/images/provider-landscape.svg)
 
-Tek bir sağlayıcıya bağlanmak yerine, görev bazlı routing yapmak daha esnek:
+Tek bir sağlayıcıya bağlanmak yerine, görev bazlı routing yapmak daha esnektir:
 
 - **Kritik, müşteriye dönük işler:** Daha güvenilir, denetlenebilir model (Azure OpenAI, Claude)
 - **Yüksek hacimli arka plan işleri:** Maliyet-optimize model (Mistral, GPT-3.5)
@@ -76,14 +70,16 @@ Bir abstraction katmanı (mesela LiteLLM veya kendi wrapper'ınız) koyarsanız,
 
 ![Seçim rehberi](/images/decision-guide.svg)
 
-1. **Veri nereye gidebilir?** Türkiye'de mi kalmalı, AB'de mi, herhangi bir yerde mi olabilir?
-2. **Gecikme ne kadar kritik?** Gerçek zamanlı chat mi, arka plan işleme mi?
-3. **Bütçe ne durumda?** Aylık tahmini token kullanımınız?
-4. **Ekip kapasitesi?** Self-host yönetebilecek DevOps var mı?
+1. **Veri nereye gidebilir?** Türkiye'de mi kalmalı, AB'de mi olmalı, yoksa herhangi bir yerde olabilir mi?
+2. **Gecikme ne kadar kritik?** Gerçek zamanlı chat mi yazıyoruz, arka plan işlemi mi yapıyoruz?
+3. **Bütçe ne durumda?** Aylık tahmini token kullanımınız ne kadar olabilir?
+4. **Ekip kapasitesi?** Self-host yönetebilecek DevOps ekibimiz var mı?
 5. **Multimodal gerekiyor mu?** Görsel, ses işleme lazım mı?
 
 ---
 
-Sonuç olarak "en iyi sağlayıcı" diye bir şey yok. Projenizin gereksinimleri, ekibinizin kapasitesi ve bütçeniz kesişiminde en uygun seçenek ortaya çıkıyor. Küçük bir pilot proje ile başlayıp, gerçek metriklerle karar vermek her zaman pazarlama söylemlerine güvenmekten daha sağlıklı.
+Sonuç olarak "en iyi sağlayıcı" diye bir şey yoktur. Projenizin gereksinimleri, ekibinizin kapasitesi ve bütçeniz kesişiminde en uygun seçenek ortaya çıkıyor. Küçük bir pilot proje ile başlayıp, gerçek metriklerle karar vermek her zaman pazarlama söylemlerine güvenmekten daha sağlıklı.
 
 Benim tavsiyem: İlk projede OpenAI ile başlayın, hızlı öğrenin. Sonra ihtiyaçlara göre çeşitlendirin. Ve mutlaka abstraction katmanı koyun — gelecekte sağlayıcı değiştirmek çok daha kolay olur.
+
+Faydalı olması dileğiyle.
