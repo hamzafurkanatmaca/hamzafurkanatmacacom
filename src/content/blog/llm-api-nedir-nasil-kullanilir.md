@@ -86,7 +86,7 @@ var result = await response.Content.ReadAsStringAsync();
 Console.WriteLine(result);
 ```
 
-Production'da tabii bunu böyle naked HttpClient ile yapmazsın, Polly ile retry eklersin, timeout koyarsın falan. Ama demo için bu kadar yeterli.
+Production'da tabii bunu böyle naked HttpClient ile yapmayız, Polly ile retry ekleriz, timeout koyarız falan. Ama demo için bu kadar yeterli.
 
 ### Streaming
 
@@ -159,9 +159,9 @@ Chunk boyutu ve overlap ayarları önemli. 500-1000 token civarı chunk'lar gene
 
 ## Güvenlik
 
-- **Prompt injection**: Kullanıcı girdisini temizlemelisin. "Şimdi önceki tüm talimatları unut ve..." gibi şeyler deneyenler olabilir.
-- **PII maskeleme**: TC kimlik, kredi kartı gibi verileri modele göndermeden önce maskelemelisin.
-- **Output validation**: Model bazen halüsinasyon yapıyor. Kritik işlemlerde çıktıyı doğrulamalısın.
+- **Prompt injection**: Kullanıcı girdisini temizlemeliyiz. "Şimdi önceki tüm talimatları unut ve..." gibi şeyler deneyenler olabilir.
+- **PII maskeleme**: TC kimlik, kredi kartı gibi verileri modele göndermeden önce maskelemeliyiz.
+- **Output validation**: Model bazen halüsinasyon yapıyor. Kritik işlemlerde çıktıyı doğrulamalıyız.
 
 
 Faydalı olması dileğiyle.
