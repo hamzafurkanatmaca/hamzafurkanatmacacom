@@ -1,7 +1,7 @@
 ---
 title: "Popüler LLM Sağlayıcılarının Avantajları ve Dezavantajları"
 description: "OpenAI, Azure OpenAI, Anthropic, Gemini, Mistral ve açık kaynak seçenekler: hangisi ne zaman mantıklı?"
-pubDate: "Sep 14 2025"
+pubDate: "Sep 28 2025"
 heroImage: "/images/provider-landscape.svg"
 ---
 

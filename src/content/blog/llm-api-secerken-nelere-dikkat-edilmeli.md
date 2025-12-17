@@ -1,8 +1,8 @@
 ---
 title: "LLM API Seçerken Nelere Dikkat Edilmeli?"
 description: "Sadece model kalitesi değil: veri gizliliği, maliyet, gecikme ve operasyonel gereksinimler de önemli."
-pubDate: "Sep 14 2025"
-heroImage: "/images/decision-guide.svg"
+pubDate: "Sep 19 2025"
+heroImage: "/images/llm.jpg"
 ---
 
 Herkes "en iyi LLM hangisi" diye soruyor ama esasında bu soru yanlış. Asıl sorulması gereken "benim işime en çok yarayan hangisi" olmalı. Çünkü bir chatbot için doğru olan seçim, hassas veri işleyen bir sağlık uygulaması için tamamen yanlış olabiliyor.
