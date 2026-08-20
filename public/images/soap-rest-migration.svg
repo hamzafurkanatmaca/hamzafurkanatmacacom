@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="540" viewBox="0 0 1080 540" role="img" aria-label="SOAP servislerinden REST API'lere kademeli geçiş mimarisi">
+  <defs>
+    <style>
+      .box { fill: #ffffff; stroke: #111827; stroke-width: 2; rx: 10; ry: 10; }
+      .title { font: 600 18px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #111827; }
+      .text { font: 14px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #374151; }
+      .arrow { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrowhead); fill: none; }
+      .dashed { stroke-dasharray: 6 6; }
+      .badge { fill: #eef2ff; stroke: #6366f1; stroke-width: 1.5; rx: 6; ry: 6; }
+      .muted { fill: #6b7280; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="540" fill="#ffffff"/>
+
+  <!-- Gözlemlenebilirlik -->
+  <rect class="box" x="340" y="40" width="400" height="70" />
+  <text class="title" x="540" y="72" text-anchor="middle">Gözlemlenebilirlik</text>
+  <text class="text" x="540" y="95" text-anchor="middle">Süre · Hata Oranı · Eski/Yeni Karşılaştırma</text>
+
+  <!-- İstemciler -->
+  <rect class="box" x="40" y="210" width="180" height="110" />
+  <text class="title" x="130" y="255" text-anchor="middle">İstemciler</text>
+  <text class="text" x="130" y="280" text-anchor="middle">Web · Mobil</text>
+
+  <!-- REST Cephesi -->
+  <rect class="box" x="270" y="210" width="230" height="110" />
+  <text class="title" x="385" y="255" text-anchor="middle">REST Cephesi</text>
+  <text class="text" x="385" y="280" text-anchor="middle">Minimal API · OpenAPI</text>
+
+  <!-- Adapter -->
+  <rect class="box" x="550" y="210" width="230" height="110" />
+  <text class="title" x="665" y="248" text-anchor="middle">Adapter / Çevirici</text>
+  <text class="text" x="665" y="272" text-anchor="middle">XML ⇄ JSON</text>
+  <text class="text" x="665" y="294" text-anchor="middle">Fault → HTTP eşleme</text>
+
+  <!-- Legacy SOAP -->
+  <rect class="box" x="830" y="210" width="210" height="110" />
+  <text class="title" x="935" y="255" text-anchor="middle">Legacy SOAP</text>
+  <text class="text" x="935" y="280" text-anchor="middle">WCF · WSDL</text>
+
+  <!-- Yeni servisler -->
+  <rect class="box" x="550" y="390" width="230" height="90" />
+  <text class="title" x="665" y="425" text-anchor="middle">Yeni Servisler</text>
+  <text class="text" x="665" y="450" text-anchor="middle">kademeli devralma</text>
+
+  <!-- Ana akış -->
+  <line class="arrow" x1="220" y1="265" x2="270" y2="265" />
+  <line class="arrow" x1="500" y1="265" x2="550" y2="265" />
+  <line class="arrow" x1="780" y1="265" x2="830" y2="265" />
+
+  <!-- Gözlemlenebilirlik tapları -->
+  <line class="arrow dashed" x1="385" y1="210" x2="385" y2="115" />
+  <line class="arrow dashed" x1="665" y1="210" x2="665" y2="115" />
+
+  <!-- Kademeli devralma -->
+  <line class="arrow dashed" x1="665" y1="320" x2="665" y2="390" />
+
+  <!-- Rozetler -->
+  <rect class="badge" x="305" y="335" width="160" height="28" />
+  <text class="text" x="385" y="354" text-anchor="middle">JWT / OAuth2</text>
+
+  <rect class="badge" x="850" y="335" width="170" height="28" />
+  <text class="text" x="935" y="354" text-anchor="middle">WS-Security · XML</text>
+
+  <!-- Caption -->
+  <text class="muted text" x="540" y="520" text-anchor="middle">Strangler fig: cephe sabit kalır, arkadaki servis parça parça değişir</text>
+</svg>
