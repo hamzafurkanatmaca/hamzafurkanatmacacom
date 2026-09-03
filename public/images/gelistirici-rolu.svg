@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="540" viewBox="0 0 1080 540" role="img" aria-label="AI çağında yazılım geliştiricisinin iş akışındaki rolü">
+  <defs>
+    <style>
+      .box { fill: #ffffff; stroke: #111827; stroke-width: 2; rx: 10; ry: 10; }
+      .title { font: 600 18px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #111827; }
+      .text { font: 14px Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; fill: #374151; }
+      .arrow { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrowhead); fill: none; }
+      .dashed { stroke-dasharray: 6 6; }
+      .badge { fill: #eef2ff; stroke: #6366f1; stroke-width: 1.5; rx: 6; ry: 6; }
+      .muted { fill: #6b7280; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="540" fill="#ffffff"/>
+
+  <!-- Geliştirici bandı -->
+  <rect class="box" x="34" y="34" width="1012" height="76" />
+  <text class="title" x="540" y="66" text-anchor="middle">Geliştirici</text>
+  <text class="text" x="540" y="90" text-anchor="middle">Problemi tanımlamak · Karar vermek · Doğrulamak · Sorumluluğu üstlenmek</text>
+
+  <!-- Adımlar -->
+  <rect class="box" x="34" y="228" width="180" height="112" />
+  <text class="title" x="124" y="272" text-anchor="middle">Problem Tanımı</text>
+  <text class="text" x="124" y="298" text-anchor="middle">ne · neden · sınırlar</text>
+
+  <rect class="box" x="242" y="228" width="180" height="112" />
+  <text class="title" x="332" y="272" text-anchor="middle">Bağlam</text>
+  <text class="text" x="332" y="298" text-anchor="middle">kod tabanı · kurallar</text>
+
+  <rect class="box" x="450" y="228" width="180" height="112" />
+  <text class="title" x="540" y="272" text-anchor="middle">Üretim</text>
+  <text class="text" x="540" y="298" text-anchor="middle">taslak kod</text>
+
+  <rect class="box" x="658" y="228" width="180" height="112" />
+  <text class="title" x="748" y="272" text-anchor="middle">Doğrulama</text>
+  <text class="text" x="748" y="298" text-anchor="middle">test · inceleme</text>
+
+  <rect class="box" x="866" y="228" width="180" height="112" />
+  <text class="title" x="956" y="272" text-anchor="middle">Entegrasyon</text>
+  <text class="text" x="956" y="298" text-anchor="middle">canlı · izleme</text>
+
+  <!-- Akış -->
+  <line class="arrow" x1="214" y1="284" x2="242" y2="284" />
+  <line class="arrow" x1="422" y1="284" x2="450" y2="284" />
+  <line class="arrow" x1="630" y1="284" x2="658" y2="284" />
+  <line class="arrow" x1="838" y1="284" x2="866" y2="284" />
+
+  <!-- Geliştiricinin her adıma bakışı -->
+  <line class="arrow dashed" x1="124" y1="110" x2="124" y2="228" />
+  <line class="arrow dashed" x1="332" y1="110" x2="332" y2="228" />
+  <line class="arrow dashed" x1="540" y1="110" x2="540" y2="228" />
+  <line class="arrow dashed" x1="748" y1="110" x2="748" y2="228" />
+  <line class="arrow dashed" x1="956" y1="110" x2="956" y2="228" />
+
+  <!-- Model -->
+  <rect class="box" x="450" y="420" width="180" height="64" />
+  <text class="title" x="540" y="449" text-anchor="middle">Model / Agent</text>
+  <text class="text" x="540" y="470" text-anchor="middle">taslak üretir</text>
+  <line class="arrow" x1="540" y1="420" x2="540" y2="340" />
+
+  <text class="text muted" x="748" y="372" text-anchor="middle">inceleme yükü burada artıyor</text>
+  <text class="text muted" x="34" y="440">AI tek bir adımı hızlandırıyor;</text>
+  <text class="text muted" x="34" y="462">geri kalanı geliştiricide kalıyor.</text>
+</svg>
