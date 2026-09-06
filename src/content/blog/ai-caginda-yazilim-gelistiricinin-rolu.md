@@ -5,13 +5,7 @@ pubDate: "Sep 3 2026"
 heroImage: "/images/gelistirici-rolu.svg"
 ---
 
-Geçen ay ekipten bir arkadaş 600 satırlık bir PR açtı. Açıklaması tertemizdi, testleri yeşildi, isimlendirme projenin geri kalanıyla tutarlıydı. Benim iki günde yazacağım işi bir öğleden sonra bitirmişti. İnceledim, birkaç ufak yorum bıraktım, birleştirdik.
-
-İki hafta sonra bir müşteri, başka bir müşterinin sipariş özetini gördü.
-
-Sebep tek satırdı. Önbellek anahtarı `siparis-ozet-{kullaniciId}` şeklinde kurulmuştu. Sistem çok kiracılı ve kullanıcı kimlikleri kiracı bazında üretiliyor — yani iki farklı şirkette aynı kimlik pekâlâ olabiliyor. Modelin bunu bilmesi mümkün değildi, çünkü o bilgi kodun hiçbir yerinde yazmıyordu; ekibin kafasındaydı. Biz de incelemede kaçırdık, çünkü o satır tek başına bakınca son derece makul görünüyordu.
-
-O olaydan sonra bu işteki rolümün ne olduğu konusunda kafam netleşti.
+AI çağıyla birlikte yazılım geliştiricinin rolünde değişiklikler olduğu çok açık bir gerçektir.
 
 ## Ne Değişti?
 
