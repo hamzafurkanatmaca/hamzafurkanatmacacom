@@ -1,75 +1,305 @@
 ---
+
 title: "AI Çağında Yazılım Geliştiricinin Rolü"
 description: "Kod üretmek ucuzladı, doğrulamak aynı kaldı: değişen iş akışı, büyüyen inceleme yükü ve yolda öğrendiklerim."
 pubDate: "Sep 3 2026"
 heroImage: "/images/gelistirici-rolu.svg"
----
+-----------------------------------------
 
-AI çağıyla birlikte yazılım geliştiricinin rolünde değişiklikler olduğu çok açık bir gerçektir.
+AI'ın yazılım geliştirme biçimimizi değiştirdiğini söylemek artık pek iddialı bir cümle değil. Birkaç yıl önce çoğumuz AI araçlarını daha çok meraktan kurcalıyorduk. Bugün ise gün içinde yazdığım kodun, yaptığım araştırmanın ve hatta bazı teknik kararların önemli bir bölümünde bir şekilde AI var.
 
-## Ne Değişti?
+Ama bence asıl değişiklik “AI kod yazıyor” kısmı değil.
 
-Kod üretmek ucuzladı. Bu kadar net. Eskiden bir günde 200 satır yazardım ve o 200 satırın her birini niye yazdığımı bilirdim. Şimdi bir öğleden sonra 800 satır çıkıyor.
+Kod zaten yazılıyor. Hatta fazlasıyla yazılıyor.
 
-Ama şöyle bir detay var: üretmenin maliyeti düştü, **doğrulamanın maliyeti aynı kaldı**. Kodu okumak, anlamak, "burada ne ters gidebilir" diye düşünmek hâlâ eskisi kadar sürüyor. Aradaki oran bozulunca darboğaz yer değiştirdi. Artık gün içinde en çok vakit alan şey klavyeyle kod yazmak değil, önüme gelen kodun doğru olup olmadığına karar vermek.
+Benim işimde değişen şey, kodu üretmekten çok **üretilen kodun doğru olup olmadığına karar vermek** oldu.
 
-İkinci değişiklik daha sinsi: yanlış kod artık **daha güzel** görünüyor. Eskiden aceleyle yazılmış kodun bir kokusu olurdu — tutarsız isimler, yarım bırakılmış yorumlar, kopyala-yapıştır izleri. İncelerken o kokuyu alır, oraya daha dikkatli bakardın. Şimdi hatalı kod da düzgün biçimlendirilmiş, güzel isimlendirilmiş ve özenli yorumlanmış halde geliyor. Yukarıdaki önbellek hatası tam olarak bu yüzden gözden kaçtı.
+## Kod Yazmak Ucuzladı
 
-## Ne Değişmedi?
+Eskiden bir günde 200 satır kod yazdıysam, o 200 satırın büyük bölümünü neden yazdığımı bilirdim. Çünkü satır satır ben uğraşmıştım.
 
-Sorumluluk. Canlıda bir şey patladığında "onu AI yazmıştı" diye bir savunma yok, olmayacak da. PR'ın altında senin adın yazıyor, birleştirme düğmesine sen bastın.
+Şimdi öğleden sonra bir agent'a birkaç görev veriyorsun, bir bakıyorsun 800 satırlık değişiklik çıkmış.
 
-Bir de sistemin bütününü kafanda tutma işi değişmedi. Model önündeki dosyaları görüyor; senin üç ay önce başka bir serviste aldığın kararı, iş biriminin geçen hafta söylediği şeyi veya "o tabloya dokunmuyoruz çünkü rapor ekibi ondan besleniyor" bilgisini görmüyor. Bu bilgiyi taşıyan hâlâ sensin.
+İlk başta bu inanılmaz verimli hissettiriyor.
 
-## Terminoloji
+Sonra PR'ı açıyorsun.
 
-**Bağlam**: Modelin o an gördüğü her şey — açık dosyalar, verdiğin talimat, repodaki kurallar. Çıktı kalitesinin büyük kısmı burada belirleniyor. Kötü çıktı aldığımda ilk baktığım yer model seçimi değil, bağlamda ne eksik olduğu.
+Ve o 800 satırı yine sen okuyorsun.
 
-**Otomatik tamamlama ve agent farkı**: Otomatik tamamlama yazdığın satırı bitiriyor, kontrol tamamen sende. Agent ise dosyaları kendi okuyup kendi değiştiriyor, komut çalıştırabiliyor. İkisi aynı şey değil ve inceleme yükleri de aynı değil.
+İşte burada biraz garip bir durum oluştu. Kod üretmenin maliyeti ciddi şekilde düştü ama **kodu doğrulamanın maliyeti pek düşmedi**.
 
-**Vibe coding**: Çıkan kodu tam anlamadan, "çalışıyor gibi" diye kabul etmek. Prototipte, atılacak bir demoda gayet serbest. Üretim koduna girdiği anda borca dönüşüyor.
+Kodun gerçekten ihtiyacı karşılayıp karşılamadığını anlamak, edge case düşünmek, sistemin başka bir yerini bozup bozmadığına bakmak hâlâ zaman alıyor.
 
-**İnceleme borcu**: Düzgün okunmadan birleştirilmiş kod. Teknik borçtan farkı şu: teknik borcun nerede olduğunu bilirsin, "şu modülü bir gün düzelteceğiz" dersin. İnceleme borcunun nerede olduğunu bilmezsin. Kendini canlıda gösterene kadar öğrenemezsin.
+Yani darboğaz yer değiştirdi.
 
-**Değerlendirme (eval)**: Ürününde LLM kullanıyorsan çıktının kalitesini ölçen test kümesi. Birim testin bu alandaki karşılığı gibi düşün — deterministik olmayan bir şeyi ölçmenin tek makul yolu.
+Ben artık günün önemli bir kısmında kod yazmıyorum. Kod okuyorum.
 
-**Kurallar dosyası**: Repoya konan, projenin konvansiyonlarını modele anlatan dosya. Efor/getiri oranı en yüksek şey bu, aşağıda örneğini vereceğim.
+Daha doğrusu, önüme gelen kod için sürekli şu soruyu soruyorum:
 
-## İş Akışı
+> Burada ne ters gidebilir?
+
+Bir başka ilginç taraf da şu: yanlış kod artık eskisinden çok daha düzgün görünüyor.
+
+Eskiden aceleyle yazılmış kodun genelde bir kokusu olurdu. İsimlendirme bozuktur, bir yerde copy-paste izi vardır, yorum yarım kalmıştır. Code review sırasında gözün otomatik olarak oraya giderdi.
+
+AI'ın yazdığı hatalı kod ise gayet şık olabiliyor.
+
+İsimler düzgün.
+
+Format düzgün.
+
+Yorumlar düzgün.
+
+Kod yanlış.
+
+Bence AI ile çalışırken alışılması gereken en tehlikeli şeylerden biri bu.
+
+## Değişmeyen Kısım
+
+Bir şey ise hiç değişmedi: sorumluluk.
+
+Canlıda sistem patladığında kimseye “ama o kısmı AI yazmıştı” diyemiyorsun.
+
+PR senin.
+
+Merge düğmesine sen bastın.
+
+Dolayısıyla kodu kimin ürettiğinden çok, kimin onayladığı önemli.
+
+Bir de sistem bilgisinin tamamını modele aktarmak hâlâ kolay değil.
+
+Model önündeki dosyaları okuyabiliyor. Repoda arama yapabiliyor. Hatta düzgün kurulmuşsa build alıp test bile çalıştırabiliyor.
+
+Ama üç ay önce başka bir serviste neden garip bir karar aldığımızı bilmiyor.
+
+Geçen hafta iş biriminin söylediği istisnayı bilmiyor.
+
+Ya da ekipte herkesin bildiği ama hiçbir yerde yazmayan şu tarz bilgileri bilmiyor:
+
+“Bu tabloya dokunmuyoruz çünkü eski raporlama sistemi buradan besleniyor.”
+
+İşte o bilgi hâlâ geliştiricide.
+
+Bence bugün deneyimli bir geliştiricinin değerli olduğu yerlerden biri tam olarak burası.
+
+## Önce Birkaç Kavram
+
+Yazının devamında kullanacağım birkaç kavram var. Çok akademik tanımlara girmeden ne kastettiğimi söyleyeyim.
+
+**Bağlam**
+
+Modelin o anda bildiği her şey.
+
+Açık dosyalar, verdiğin prompt, repodaki kurallar, örnek kodlar, testler…
+
+Bir süredir kötü çıktı aldığımda ilk suçladığım şey model değil. Önce “ben buna neyi söylemedim?” diye bakıyorum.
+
+Çoğu zaman problem oradan çıkıyor.
+
+**Otomatik tamamlama ve agent**
+
+Bunları aynı şeymiş gibi konuşuyoruz ama bence aralarında ciddi fark var.
+
+Autocomplete sen kod yazarken yardımcı oluyor. Direksiyon hâlâ tamamen sende.
+
+Agent ise repoyu gezebiliyor, dosya değiştirebiliyor, komut çalıştırabiliyor ve bazen senden çok daha fazla kod üretebiliyor.
+
+Doğal olarak review yükü de aynı değil.
+
+**Vibe coding**
+
+Kodun nasıl çalıştığını tam anlamadan “çalıştı, tamamdır” deyip devam etmek.
+
+Bir haftaya çöpe atılacak prototipte hiçbir problem görmüyorum.
+
+Üretim kodunda ise işler biraz değişiyor.
+
+Çünkü bugün anlamadığın kodu yarın debug etmek zorunda kalan kişi çoğu zaman yine sen oluyorsun.
+
+**İnceleme borcu**
+
+Bu ifadeyi son dönemde teknik borçtan daha çok düşünüyorum.
+
+Teknik borçta genelde borcun nerede olduğunu bilirsin.
+
+“Şu modülü kötü yazdık, sonra düzeltelim.”
+
+İnceleme borcunda ise problem farklı.
+
+Yeterince anlamadan merge ettiğin kodun **neresinin problemli olduğunu bilmiyorsun**.
+
+Belki hiçbir sorun çıkmayacak.
+
+Belki iki ay sonra production'da patlayacak.
+
+Asıl tehlike de bu.
+
+**Eval**
+
+Ürünün içinde LLM kullanıyorsan, çıktının ne kadar iyi olduğunu ölçmek için oluşturduğun test seti.
+
+Tam olarak unit test değil tabii ama zihinsel olarak ben biraz o şekilde düşünüyorum.
+
+Deterministik olmayan bir sistem kullanıyorsan “bence iyi cevap veriyor” noktasından bir yerde çıkman gerekiyor.
+
+**Kurallar dosyası**
+
+Repoya koyduğun ve modele projedeki kuralları anlattığın dosya.
+
+Açıkçası AI araçlarıyla çalışırken yaptığım şeyler arasında efor/getiri oranı en yüksek olanlardan biri bu oldu.
+
+Birazdan örnek vereceğim.
+
+## Benim İçin İş Akışı Nasıl Değişti?
 
 ![AI çağında geliştiricinin iş akışındaki rolü](/images/gelistirici-rolu.svg)
 
-Akış şu: Problemi tanımlıyorsun, bağlamı kuruyorsun, model taslağı üretiyor, sen doğruluyorsun, sonra entegre ediyorsun.
+Kabaca akış şu hale geldi:
 
-Şemadaki asıl mesaj ortadaki kutunun darlığı. Model beş adımdan yalnızca birini hızlandırıyor. Diğer dördü olduğu yerde duruyor ve dördü de sende. Üretim adımını on kat hızlandırıp doğrulama adımına aynı özeni göstermeyince ne olduğunu yukarıda anlattım.
+Problemi anla → bağlamı hazırla → modele işi ver → çıkan şeyi doğrula → sisteme entegre et.
 
-## AI'ı Kullanma Biçimleri
+Burada ilginç olan şu: AI aslında bu zincirin tamamını hızlandırmıyor.
 
-**Otomatik tamamlama**: Editörde satır veya blok tamamlama. Girmesi en kolay, riski en düşük yöntem. Sınır kodu, DTO eşlemeleri, tekrar eden test kurulumları gibi işlerde ciddi hız kazandırıyor.
+En çok “üret” kısmını hızlandırıyor.
 
-**Eksiler:** Bağlamı dar, birkaç dosyaya yayılan işlerde yetersiz kalıyor. Bir de refleks meselesi var — öneri gelince Tab'a basmak alışkanlık haline geliyor ve okumadan kabul ettiğin satır sayısı sandığından fazla oluyor.
+Problemin doğru tanımlanması hâlâ sende.
 
-**Sohbet ederek**: Problemi anlatıp çıkan kodu projeye taşımak. Tasarım tartışmak, bir yaklaşımın artılarını eksilerini konuşmak için iyi çalışıyor.
+Bağlamın hazırlanması sende.
 
-**Eksiler:** Bağlamı elle sen taşıyorsun, uzun sürünce yoruyor. Model repoyu görmediği için var olmayan yardımcı metotlar uydurabiliyor — sende `IKiraciBaglami` varken `TenantContext` diye bir şey çağırıyor, sen de her seferinde elle düzeltiyorsun.
+Doğrulama sende.
 
-**Agent**: Repoda çalışan, dosyaları okuyup değiştiren, testi kendi çalıştıran kip. Verim farkının en çok hissedildiği yer burası. Çok dosyaya dokunan mekanik işlerde — bir arayüzü değiştirip tüm çağıranları güncellemek gibi — gerçekten iyi.
+Sisteme gerçekten uyup uymadığına karar vermek yine sende.
 
-**Eksiler:** Değişiklik hacmi büyüyor, inceleme yükü onunla birlikte büyüyor. Küçük bir istek 12 dosyaya dokunmuş olarak geri gelebiliyor. Sınır koymazsan yoldan çıkıyor: kapsamı dar tut, build ve testi elinin altına ver, "şu klasörün dışına çıkma" gibi kısıtları baştan söyle.
+Dolayısıyla üretim hızını on kat artırıp review tarafını aynı bırakırsan bir noktadan sonra verim değil, sadece daha büyük bir kuyruk üretmiş oluyorsun.
 
-**Uçtan uca otonom**: Issue'yu verip PR bekleme. İyi tanımlanmış, izole, testi zaten var olan işlerde çalışıyor — bağımlılık güncellemesi, tekrarlayan dönüşümler, ufak hata düzeltmeleri.
+Bunu yaşayarak fark ettim.
 
-**Eksiler:** Belirsiz tanımlanmış işlerde soru sormak yerine varsayımda bulunuyor ve yanlış çözümü de doğru çözümle aynı özgüvenle sunuyor. En tehlikeli mod bu, çünkü hatanın maliyeti en geç fark edildiği yerde ortaya çıkıyor.
+## AI'ı Nasıl Kullanıyorum?
 
-## Kod Örnekleri
+### Otomatik tamamlama
 
-### Modelin Bilemeyeceği Şey
+En basit kullanım şekli bu.
 
-Girişte anlattığım hatanın kendisi:
+DTO mapping, basit guard'lar, test setup'ları, tekrar eden kodlar…
+
+Bu tip işlerde hâlâ çok kullanışlı.
+
+Risk de görece düşük çünkü kod sen yazarken küçük parçalar halinde geliyor.
+
+Ama burada bile bir alışkanlık oluşuyor.
+
+Öneri geliyor.
+
+Tab.
+
+Bir tane daha geliyor.
+
+Tab.
+
+Bir süre sonra fark ediyorsun ki aslında bazı satırları okumadan kabul etmeye başlamışsın.
+
+Küçük ama bence önemli bir tuzak.
+
+### Sohbet ederek
+
+Bir problemi anlatıp çözüm tartışmak hâlâ en sevdiğim kullanım biçimlerinden biri.
+
+Özellikle mimari kararlar için iyi çalışıyor.
+
+“Bunu event ile mi çözsem yoksa doğrudan çağrı mı yapsam?”
+
+“Burada idempotency nasıl kurulmalı?”
+
+“Bu tasarımın sıkıntılı tarafı ne?”
+
+Koddan önce fikir tartışmak bazen doğrudan kod üretmekten daha faydalı oluyor.
+
+Dezavantajı şu: bağlamı sen taşıyorsun.
+
+Repo modelin önünde değilse bir noktadan sonra olmayan şeyler uydurmaya başlayabiliyor.
+
+Mesela projede `IKiraciBaglami` var ama model sana gayet rahat şekilde:
+
+```csharp
+TenantContext.Current
+```
+
+diye bir şey yazabiliyor.
+
+Sen de gidip düzeltiyorsun.
+
+Üçüncü seferde insanın siniri bozuluyor.
+
+### Agent
+
+Verim farkını en net burada hissediyorum.
+
+Bir interface değişti, 14 yerde kullanılıyor.
+
+Eskiden tek tek açıp düzeltecektim.
+
+Şimdi agent hepsini bulup değiştirebiliyor, build alabiliyor, hataları görüp tekrar düzeltebiliyor.
+
+Bu gerçekten ciddi zaman kazandırıyor.
+
+Ama başka bir problem getiriyor:
+
+**değişiklik hacmi.**
+
+Basit sandığın bir istek bir anda 12 dosyalık diff olarak geri gelebiliyor.
+
+Bu yüzden agent'a görev verirken artık özellikle sınır koyuyorum.
+
+“Şu klasörün dışına çıkma.”
+
+“Public contract değiştirme.”
+
+“Yeni dependency ekleme.”
+
+“Önce mevcut testi çalıştır.”
+
+Bunları söylemediğimde bazen çözmesi gereken problemi çözüyor ama yanında üç tane yeni problem bırakıyor.
+
+### Uçtan uca otonom işler
+
+Issue'yu verip PR beklemek kulağa çok güzel geliyor.
+
+Bazı işlerde gerçekten çalışıyor.
+
+Dependency güncellemesi.
+
+Basit refactor.
+
+Net tanımlanmış bug.
+
+Testi olan küçük işler.
+
+Ama belirsizlik arttıkça güvenim hızla düşüyor.
+
+Çünkü insan geliştirici bazen durup:
+
+“Burada tam olarak ne istiyorsunuz?”
+
+diye soruyor.
+
+Model ise çoğu zaman bir varsayım yapıp devam ediyor.
+
+Daha kötüsü, yanlış varsayımla ürettiği çözümü de son derece kendinden emin sunuyor.
+
+O yüzden otonomi arttıkça benim review seviyem de artıyor.
+
+## Modelin Bilemeyeceği Bir Şey
+
+Basit bir örnek vereyim.
+
+Model şöyle bir kod üretsin:
 
 ```csharp
 // Üretilen hali — tek başına bakınca kusursuz görünüyor
-public async Task<SiparisOzetDto> GetirAsync(int kullaniciId, CancellationToken ct)
+
+public async Task<SiparisOzetDto> GetirAsync(
+    int kullaniciId,
+    CancellationToken ct)
 {
     var anahtar = $"siparis-ozet-{kullaniciId}";
 
@@ -77,34 +307,63 @@ public async Task<SiparisOzetDto> GetirAsync(int kullaniciId, CancellationToken 
         return onbellekten!;
 
     var ozet = await _repo.OzetGetirAsync(kullaniciId, ct);
+
     _cache.Set(anahtar, ozet, TimeSpan.FromMinutes(5));
+
     return ozet;
 }
 ```
 
-Düzeltilmiş hali:
+Tek başına baktığımda ben de buna “gayet iyi” diyebilirim.
+
+Ama sistem çok kiracılıysa ve kullanıcı kimlikleri tenant bazında üretiliyorsa burada ciddi bir açık var.
+
+Doğru hali şöyle:
 
 ```csharp
-public async Task<SiparisOzetDto> GetirAsync(int kullaniciId, CancellationToken ct)
+public async Task<SiparisOzetDto> GetirAsync(
+    int kullaniciId,
+    CancellationToken ct)
 {
     // Kullanıcı kimlikleri kiracı bazında üretiliyor; kiracı katılmazsa
     // iki farklı şirketin aynı kimlikli kullanıcıları aynı kaydı paylaşır.
+
     var anahtar = $"siparis-ozet-{_kiraci.Id}-{kullaniciId}";
 
     if (_cache.TryGetValue<SiparisOzetDto>(anahtar, out var onbellekten))
         return onbellekten!;
 
     var ozet = await _repo.OzetGetirAsync(kullaniciId, ct);
+
     _cache.Set(anahtar, ozet, TimeSpan.FromMinutes(5));
+
     return ozet;
 }
 ```
 
-Düzeltmenin kendisi 30 saniyelik. Asıl kıymetli olan o yorum satırı. O bilgi kodda yazılı olmadığı sürece aynı hatayı başka bir dosyada tekrar yapacaktık — AI olsun ya da olmasın. Ekibe yeni katılan biri de aynı tuzağa düşerdi zaten.
+Burada düzeltme 30 saniye.
 
-### Testi Sen Yaz, Geçirmeyi Ona Bırak
+Asıl önemli şey o yorum.
 
-Bu sırayı tersine çevirmek işe yarıyor:
+Çünkü hata C# bilgisi eksikliğinden kaynaklanmıyor.
+
+Sistem bilgisinin eksikliğinden kaynaklanıyor.
+
+O bilgiyi bir yere yazmazsak yarın başka bir geliştirici de aynı hatayı yapabilir. AI da yapabilir.
+
+Aslında AI burada yeni bir problem yaratmadı.
+
+Zaten var olan örtük bilgiyi görünür hale getirdi.
+
+Bu ayrımı önemli buluyorum.
+
+## Testi Ben Yazıp Kodu Ona Bıraktığım Oluyor
+
+Son dönemde hoşuma giden bir çalışma şekli şu:
+
+Önce doğruluğun ne olduğunu ben tarif ediyorum.
+
+Örneğin:
 
 ```csharp
 [Fact]
@@ -112,8 +371,15 @@ public async Task Ayni_Kullanici_Kimligi_Farkli_Kiracilarda_Onbellegi_Karistirma
 {
     var cache = new MemoryCache(new MemoryCacheOptions());
 
-    var aServisi = OzetServisiKur(cache, kiraciId: "sirket-a", beklenenTutar: 100m);
-    var bServisi = OzetServisiKur(cache, kiraciId: "sirket-b", beklenenTutar: 250m);
+    var aServisi = OzetServisiKur(
+        cache,
+        kiraciId: "sirket-a",
+        beklenenTutar: 100m);
+
+    var bServisi = OzetServisiKur(
+        cache,
+        kiraciId: "sirket-b",
+        beklenenTutar: 250m);
 
     // İki kiracıda da kullanıcı kimliği 42
     var a = await aServisi.GetirAsync(42, default);
@@ -124,60 +390,304 @@ public async Task Ayni_Kullanici_Kimligi_Farkli_Kiracilarda_Onbellegi_Karistirma
 }
 ```
 
-Bu testi modele yazdırmazsın, çünkü testin var olma sebebi senin sistem bilgin. Ama test bir kez ortadayken "şunu geçir" demek gayet iyi çalışıyor — ve çıkan kodu doğrulaman da kolaylaşıyor, çünkü artık doğruluğun tanımı yazılı.
+Bu testin var olması gerektiğini modelin bilmesini beklemiyorum.
 
-### Kuralları Repoya Yazmak
+Çünkü testin arkasındaki bilgi benim sistem bilgim.
 
-Kök dizine konan basit bir markdown dosyası. Bende şuna benzer bir şey duruyor:
+Ama testi yazdıktan sonra:
+
+“Bu testi geçir.”
+
+demek gayet iyi çalışıyor.
+
+Üstelik çıkan kodu incelemek de daha kolay oluyor.
+
+Çünkü artık “bu doğru mu?” diye tamamen soyut bir soru sormuyorum.
+
+Doğruluğun bir kısmını önceden yazmış oluyorum.
+
+## Kuralları Repoya Yazınca İlginç Bir Şey Oldu
+
+Repo kökünde şöyle bir markdown dosyası tutuyorum:
 
 ```markdown
 ## Bu Repoda Geçerli Kurallar
 
 - Sistem çok kiracılı. Önbellek anahtarı, dosya yolu veya arama sorgusu
   üreten her yerde `IKiraciBaglami.Id` mutlaka yer alır.
+
 - Para alanları `decimal`. Hesaplamada `double` kullanılmaz.
-- Dış servis çağrıları `IHttpClientFactory` üzerinden yapılır,
-  doğrudan `new HttpClient()` yasak.
+
+- Dış servis çağrıları `IHttpClientFactory` üzerinden yapılır.
+  Doğrudan `new HttpClient()` yasak.
+
 - Yeni endpoint `/api/v1` altına eklenir, yetki politikası açıkça yazılır.
+
 - Veritabanı değişikliği migration ile yapılır, elle SQL çalıştırılmaz.
 ```
 
-Bu dosyanın komik tarafı şu: aynı şeyleri ekibe yeni katılan insanlara da sözlü olarak anlatıyorduk, yıllarca hiç yazmamıştık. Model için yazdık, en çok yeni gelen arkadaşlar faydalandı. Bir ara "acaba bunu baştan yapsaydık" diye düşündüm, cevabı biliyorum: yapmazdık, çünkü ihtiyaç görünür değildi.
+Bunu ilk başta tamamen model için yazmıştım.
 
-## Pratikte İşe Yarayanlar
+Sonra fark ettim ki ekipte yeni başlayan biri için de gayet faydalı bir dokümana dönüşmüş.
 
-1. **Küçük parça iste.** 600 satırlık bir PR'ı kimse hakkıyla incelemiyor, ben de incelemedim. 150 satırlık dört PR, 600 satırlık bir PR'dan çok daha güvenli. Model büyük parça üretebiliyor diye büyük parça istemek zorunda değilsin.
+Biraz komik aslında.
 
-2. **Doğruluğun tanımını önce sen koy.** Test, kabul kriteri, örnek girdi-çıktı — hangisi uygunsa. Bu adımı atlarsan "çalışıyor mu" sorusunun cevabı hisse kalıyor.
+Yıllardır yeni gelen insanlara aynı şeyleri sözlü olarak anlatıyoruz.
 
-3. **Anlamadığın kodu birleştirme.** Kuralların en basiti, uygulaması en zor olanı. Özellikle akşam saatlerinde ve iş yetiştirme telaşındayken zorlaşıyor. Yine de bu kuralı bozduğum her seferde pişman oldum.
+Ama yazmıyoruz.
 
-4. **"Neden böyle yaptın" diye sor.** Çıkan koda gerekçesini sorunca gerekçenin çürük olduğu epey durum çıkıyor. Üstelik bu soru sana da yarıyor, kendi varsayımını da test etmiş oluyorsun.
+AI gelince:
 
-5. **Kuralları koda ve repoya yaz.** Kafandaki bilgi yazılı olmadıkça ne model biliyor ne yeni gelen arkadaş. İkisi de aynı problem.
+“Model bunu nereden bilecek?”
 
-6. **Doğrulama araçlarını eline ver.** Agent kullanıyorsan build, test ve linter komutlarını çalıştırabilmesi büyük fark yaratıyor. Kendi hatasını kendi görüp düzeltiyor, sana daha temiz bir şey geliyor.
+deyip yazmaya başladık.
 
-## Tuzaklar
+Sonra insanlara da faydası oldu.
 
-- **İnceleme borcu birikiyor.** Ekip olarak üretim hızını iki katına çıkarıp inceleme kapasitesini aynı bıraktıysanız, fark bir yerde birikiyor. Genelde canlıda ödeniyor.
+Muhtemelen baştan yazmamız gerekiyordu.
 
-- **Emin dil bir sinyal değil artık.** İnsan meslektaşında tereddüt bir bilgidir; "bundan pek emin değilim" cümlesi sana nereye bakacağını söyler. Modelde o sinyal yok, yanlış cevabı da doğru cevapla aynı tonda veriyor. Buna göre ayar yapmak lazım.
+Ama yazmadık.
 
-- **Öğrenme kasını körletmek.** Hata ayıklama becerisi ancak hata ayıklayarak gelişiyor. Her takıldığında hemen sormak kısa vadede hızlandırıyor, uzun vadede o kası zayıflatıyor. Bunu kendimde fark ettim; artık bazı hataları bilerek kendim kovalıyorum, bir tür idman gibi.
+Çünkü ihtiyaç yeterince görünür değildi.
 
-- **Junior meselesi.** "Basit işleri AI yapıyor, junior'a iş kalmadı" cümlesini çok duyuyorum. Bence yanlış okuma. İş bitmedi, giriş bandı yükseldi — kalan iş daha zor. Çözüm junior almayı kesmek değil, işe alım sonrası ilk öğretilen şeyi değiştirmek. Eskiden "şunu yazmayı öğren" derdik; artık "şunun doğru olup olmadığını nasıl anlarsın" diye başlamak gerekiyor.
+## Şu Ana Kadar En Çok İşime Yarayan Şeyler
 
-- **Uydurulmuş paketler.** Var olmayan paket adları önerilebiliyor ve birileri o isimlerle gerçekten zararlı paket yayınlıyor. Yeni bir bağımlılık eklerken paketin gerçekten var olduğuna, indirilme sayısına ve deposuna bakmak yarım dakika sürüyor.
+### Küçük parça iste
 
-- **Nereye ne gönderdiğin.** Kapalı kod tabanını, müşteri verisini veya sırları hangi servise gönderdiğine dikkat. Bu konuya [LLM API seçerken](/blog/llm-api-secerken-nelere-dikkat-edilmeli/) yazısında girmiştim, orada anlattığım maddeler kendi kodun için de aynen geçerli.
+Bir model 600 satır kod üretebiliyor diye 600 satır istemek zorunda değilsin.
 
-- **Yanlış metrik.** "Ne kadar hızlı yazdık" ölçüsü aldatıcı. Daha dürüst bir ölçü: canlıya çıkan ve geri dönmeyen iş miktarı. Birinciyi iyileştirip ikinciyi bozmak mümkün, ki bizde bir dönem tam olarak bu oldu.
+Bunu birkaç kez yaptım ve sonrasında PR'ın yarısına geldiğimde kendimi sadece aşağı doğru kaydırırken buldum.
+
+600 satırlık bir değişikliği hakkıyla incelemek zor.
+
+150 satırlık dört değişiklik çok daha rahat.
+
+AI'ın üretim kapasitesi arttıkça işi küçültmek bence daha da önemli hale geliyor.
+
+### Doğruluğu mümkün olduğunca baştan tanımla
+
+Test olabilir.
+
+Acceptance criteria olabilir.
+
+Örnek input-output olabilir.
+
+Ama “doğru çözüm neye benziyor?” sorusuna mümkün olduğunca erken cevap vermek lazım.
+
+Yoksa iş sonunda:
+
+“Çalışıyor gibi.”
+
+noktasına geliyor.
+
+“Çalışıyor gibi” üretim sistemleri için pek iyi bir kriter değil.
+
+### Anlamadığım kodu merge etmemeye çalışıyorum
+
+Bunu yazmak kolay.
+
+Uygulamak daha zor.
+
+Özellikle akşam olmuşsa, release bekliyorsa ve önünde 400 satırlık gayet temiz görünen bir diff varsa insanın:
+
+“Testler de geçiyor zaten.”
+
+deyesi geliyor.
+
+Ben bunu yaptığım birkaç durumda sonradan pişman oldum.
+
+O yüzden kendime koyduğum en basit kural hâlâ bu:
+
+Anlamıyorsam merge etmiyorum.
+
+### “Neden?” diye sor
+
+Modelin ürettiği çözüm mantıklı görünse bile bazen:
+
+“Bunu neden böyle yaptın?”
+
+diye soruyorum.
+
+Şaşırtıcı derecede faydalı.
+
+Bazen kod doğru görünüyor ama gerekçesini anlatmaya başladığında aslında yanlış bir varsayımdan yola çıktığı ortaya çıkıyor.
+
+Daha güzeli, aynı soru bana da yarıyor.
+
+Çünkü bazen modelin değil, benim başlangıç varsayımım yanlış çıkıyor.
+
+### Kafandaki kuralları yaz
+
+Bir bilgi sadece senin kafandaysa iki kişi bilmiyor:
+
+AI ve ekibe yeni katılan geliştirici.
+
+Bu yüzden mümkün olan şeyleri teste, dokümana, tipe, linter kuralına veya repo talimatına çevirmek ciddi fark yaratıyor.
+
+### Agent'a test ve build çalıştırma imkânı ver
+
+Agent sadece dosya değiştiriyorsa hatasının önemli bir kısmını sana bırakıyor.
+
+Build ve test çalıştırabiliyorsa en azından basit hatalarını kendi görebiliyor.
+
+Bu bence agent kullanımındaki en büyük kalite farklarından biri.
+
+## En Çok Dikkat Ettiğim Tuzaklar
+
+### Review borcu
+
+Bir ekip eskiden haftada 20 birim iş üretiyorsa ve şimdi AI sayesinde 40 birim üretiyorsa güzel.
+
+Ama review kapasitesi hâlâ 20 ise kalan 20 birim bir yere gidiyor.
+
+Yok olmuyor.
+
+Bir yerde hızlı geçiliyor.
+
+Bir yerde yeterince okunmuyor.
+
+Bir yerde “test geçiyor” denilip merge ediliyor.
+
+Sonra borcu production'da ödüyorsun.
+
+### Kendinden emin konuşması hiçbir şey ifade etmiyor
+
+Bir insan ekip arkadaşın:
+
+“Buradan çok emin değilim.”
+
+dediğinde bu sana bilgi verir.
+
+Oraya biraz daha dikkatli bakarsın.
+
+LLM'de bu sinyal güvenilir değil.
+
+Yanlış cevabı da son derece düzgün, net ve profesyonel bir tonla verebiliyor.
+
+Buna alışmak gerekiyor.
+
+### Debug kasını kaybetmek
+
+Bunu kendimde fark ettiğim bir dönem oldu.
+
+Bir hata geliyor.
+
+İlk refleks:
+
+Logu kopyala → modele at.
+
+Sonra başka hata geliyor.
+
+Yine aynı şey.
+
+Kısa vadede çok hızlısın.
+
+Ama bir süre sonra kendi başına hata kovalamak için kullandığın reflekslerin zayıflamaya başladığını hissediyorsun.
+
+O yüzden artık bazı hatalarda bilerek hemen sormuyorum.
+
+Önce kendim bakıyorum.
+
+Biraz idman gibi.
+
+### Junior konusu
+
+“AI basit işleri yapıyor, artık junior'a ihtiyaç yok.”
+
+cümlesini sık duyuyorum.
+
+Ben buna pek katılmıyorum.
+
+Bence junior'ın işi bitmedi.
+
+Ama giriş seviyesi değişiyor.
+
+Eskiden ilk öğrettiğimiz şey:
+
+“Bunu nasıl yazarsın?”
+
+oluyordu.
+
+Şimdi giderek daha önemli hale gelen soru şu:
+
+“Bunun doğru olduğunu nasıl anlarsın?”
+
+Bu daha zor bir beceri.
+
+Dolayısıyla junior ihtiyacı ortadan kalkmıyor ama yetiştirme şeklinin değişmesi gerekiyor.
+
+### Uydurulmuş paketler
+
+Bu hâlâ dikkat edilmesi gereken bir konu.
+
+Model gayet gerçekçi görünen ama aslında var olmayan bir paket önerebiliyor.
+
+Daha kötüsü, biri gidip o isimle kötü niyetli bir paket yayınlayabiliyor.
+
+Yeni bir dependency eklerken paketin gerçekten ne olduğuna bakmak 30 saniye sürüyor.
+
+Repo nerede?
+
+Kim yayınlıyor?
+
+İndirilme sayısı ne?
+
+Bakmaya değer.
+
+### Nereye ne gönderdiğin
+
+Kod tabanı kapalıysa, müşteri bilgisi varsa veya secret'larla çalışıyorsan kullandığın AI servisinin neye eriştiği önemli.
+
+Bu konuya [LLM API seçerken](/blog/llm-api-secerken-nelere-dikkat-edilmeli/) yazısında daha detaylı değinmiştim.
+
+Kod için de aynı mantık geçerli.
+
+“Hızlı olsun” diye ne gönderdiğimizi unutmak kolay.
+
+### Yanlış şeyi ölçmek
+
+“AI ile artık iki kat hızlı kod yazıyoruz.”
+
+Güzel.
+
+Ama bence daha anlamlı soru şu:
+
+**İki kat daha fazla çalışan yazılım mı çıkarıyoruz?**
+
+Çünkü üretilen kod miktarı ile üretilen değer aynı şey değil.
+
+Bir dönem bizde de üretim hızı bariz artmıştı ama geri dönen iş sayısı da artmıştı.
+
+O zaman aslında hızlanmadığımızı fark ediyorsun.
+
+Sadece daha hızlı kod üretmiş oluyorsun.
 
 ---
 
-Esasen rolüm daralmadı, kaydı. Klavyede geçen süre azaldı; problemi doğru tanımlamakta, bağlamı kurmakta ve çıkanı doğrulamakta geçen süre arttı. Açıkçası işin bu tarafı bana daha keyifli geliyor, ama daha yorucu olduğunu da söylemem lazım — gün boyu karar vermek, gün boyu kod yazmaktan farklı bir yorgunluk.
+Sonuçta kendi adıma yazılım geliştiricinin rolünün küçüldüğünü düşünmüyorum.
 
-Bir de şu var: bu araçları kullanmamak diye bir seçenek kaldığını düşünmüyorum. Ama "kullanmak" ile "körlemesine güvenmek" arasındaki farkı korumak tamamen bizim elimizde. Aradaki mesafe de zaten bu mesleğin kendisi.
+Ama yeri değişiyor.
 
-Faydalı olması dileğiyle.
+Klavyede geçirdiğim süre eskisine göre daha az.
+
+Problemi anlamaya, doğru bağlamı toplamaya, sistemi düşünmeye ve çıkan şeyi doğrulamaya ayırdığım süre ise daha fazla.
+
+Açıkçası ben işin bu tarafını daha çok seviyorum.
+
+Ama daha yorucu olduğunu da kabul etmek lazım.
+
+Sekiz saat kod yazmanın yorgunluğu başka.
+
+Sekiz saat boyunca sürekli karar vermenin yorgunluğu başka.
+
+Bir de artık şu noktadayım:
+
+Bu araçları hiç kullanmamak pek gerçekçi gelmiyor.
+
+Ama kullanmakla güvenmek aynı şey değil.
+
+AI'ın yazdığı kodu kullanabilirim.
+
+Kararımı AI'a bırakamam.
+
+Sanırım geliştiricinin rolünün değiştiği yer de tam olarak burası.
