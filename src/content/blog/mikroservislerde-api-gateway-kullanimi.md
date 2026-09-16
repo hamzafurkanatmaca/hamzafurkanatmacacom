@@ -6,7 +6,7 @@ pubDate: "Aug 31 2026"
 heroImage: "/images/api-gateway-mimarisi.svg"
 ---------------------------------------------
 
-API Gateway'i ilk kez teoriden değil, mecburiyetten kullanmaya başladım. Bir e-ticaret projesinde mobil taraftaki arkadaş yanıma gelip ana sayfa açılırken 11 ayrı API isteği yaptıklarını söyledi. İlk başta sayı biraz abartılı geldi ama beraber bakınca gerçekten öyle olduğunu gördük. Kampanyalar bir servisten, kategoriler başka bir servisten, sepet bilgisi başka bir yerden, kullanıcı bilgileri ve öneriler ise başka servislerden geliyordu.
+API Gateway'i ilk kez teoriden değil, zorunluluktan kullanmaya başladım. Bir e-ticaret projesinde mobil taraftaki arkadaşlarla ana sayfa açılırken 11 ayrı API isteği yapıldığını tespit ettik. İlk başta sayı biraz abartılı geldi ama detaylı inceleyince gerçekten öyle olduğunu gördük. Kampanyalar bir servisten, kategoriler başka bir servisten, sepet bilgisi başka bir yerden, kullanıcı bilgileri ve öneriler ise başka servislerden geliyordu.
 
 Asıl sıkıntı sadece istek sayısı da değildi. Bu servislerin adresleri mobil uygulamanın içinde tutuluyordu. Backend tarafında bir servisin adresini veya portunu değiştirdiğimizde mobil uygulamaya yeni sürüm çıkılması gereken durumlar oluyordu. Bir noktadan sonra “bunun önüne bir katman koymamız lazım” dedik ve gateway kullanmaya başladık.
 
@@ -14,7 +14,7 @@ Gateway birçok sorunu gerçekten çözdü ama zamanla başka bir şeyi de öğr
 
 ## Gateway'e Ne Zaman İhtiyaç Oluyor?
 
-Üç dört servisten oluşan küçük bir sistemde gateway olmadan gayet rahat yaşayabilirsin. Hatta sırf mimari diyagram güzel görünsün diye araya gateway koymak gereksiz bir karmaşıklık bile yaratabilir.
+Üç dört servisten oluşan küçük bir sistemde gateway olmadan gayet rahat yaşayabilirsin. Hatta sırf yapı güzel görünsün diye araya gateway koymak gereksiz bir karmaşıklık bile yaratabilir.
 
 Servis sayısı büyüdükçe durum değişiyor. Bir süre sonra mobil uygulama servis adreslerini biliyor, web uygulaması biliyor, dış entegrasyon yapan sistemler biliyor. Bir servisi taşımak veya ikiye bölmek istediğinde aslında servis tarafındaki değişikliğin yanında bütün istemcileri de düşünmek zorunda kalıyorsun.
 
@@ -64,7 +64,7 @@ Gateway'in diğer önemli kullanım alanı ise birden fazla servisi ilgilendiren
 
 Tabii her şeyi gateway'e taşımak da doğru değil. Örneğin authorization'ın bir kısmını gateway seviyesinde yapmak mantıklı olabilir ama “bu kullanıcı bu siparişi gerçekten görebilir mi?” gibi domain'e bağlı bir kontrolün çoğu zaman ilgili serviste kalması gerekir.
 
-Gateway'in her şeyi bilmesi gerektiğini düşünmeye başladığın anda sınırlar bulanıklaşmaya başlıyor.
+Gateway'in her şeyi bilmesi gerektiğini düşünmeye başladığın anda sınırlar belirsizleşmeye başlıyor.
 
 ## BFF ve Aggregation
 

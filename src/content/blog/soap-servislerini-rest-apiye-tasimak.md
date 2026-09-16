@@ -57,7 +57,7 @@ Buradaki asıl kazanç istemcinin eski servisi hiç görmemesi. Arka tarafta o s
 
 ## Sözleşme Dönüşümü
 
-İşin en sinsi kısmı burası. XML'den JSON'a geçerken birebir karşılığı olmayan şeyler var ve bunlar genelde canlıda patlıyor.
+İşin en sorunlu kısmı burası. XML'den JSON'a geçerken birebir karşılığı olmayan şeyler var ve bunlar genelde sunucuda patlıyor.
 
 **Boş değer meselesi**: XML'de bir alanın hiç olmaması, boş gelmesi (`<Ad></Ad>`) ve `xsi:nil="true"` gelmesi üç ayrı şeydir. JSON'da hepsi `null` veya `""` oluyor. Hangisinin hangisine karşılık geldiğine baştan karar verip yazılı hale getirmek lazım, yoksa herkes kendi yorumunu yapıyor.
 
@@ -113,7 +113,7 @@ public sealed class MusteriAdapter : IMusteriAdapter
 }
 ```
 
-`Ad` alanına bakıp "bulunamadı" kararı vermek çirkin, farkındayım. Ama eski servis öyle yazılmış, elimizden bir şey gelmiyor. Bu tarz durumlar geçiş projelerinde sürekli çıkıyor — adapter katmanının varlık sebebi de zaten bu pisliği tek bir yerde toplamak.
+`Ad` alanına bakıp "bulunamadı" kararı vermek çirkin, farkındayım. Ama eski servis öyle yazılmış, elimizden bir şey gelmiyor. Bu tarz durumlar geçiş projelerinde sürekli çıkıyor — adapter katmanının varlık sebebi de zaten bu sorunları tek bir yerde toplamak.
 
 ### SOAP Fault'u HTTP Durum Koduna Çevirmek
 
